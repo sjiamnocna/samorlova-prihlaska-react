@@ -1,13 +1,280 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* line 90, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform {
+  padding: 0;
+  display: block;
+  position: relative;
 }
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@media (min-width: 421px) {
+  /* line 90, ../../files_src/style/src/parte/_appform.scss */
+  body section#prihlaska .appform {
+    margin: 5px 2em;
+  }
+}
+@media (min-width: 981px) {
+  /* line 90, ../../files_src/style/src/parte/_appform.scss */
+  body section#prihlaska .appform {
+    margin: 0 0.5%;
+  }
+}
+/* line 105, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form {
+  min-height: 32em;
+  padding: 0;
+  margin: 1em auto;
+  background: #e9ecee;
+  border: 2px solid #c7c7c7;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  clear: left;
+}
+@media (min-width: 981px) {
+  /* line 105, ../../files_src/style/src/parte/_appform.scss */
+  body section#prihlaska .appform form {
+    margin-top: 0;
+  }
+}
+/* line 118, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form h3 {
+  font-size: 2.3em;
+  text-align: center;
+  padding: 0.4em 1em 0.2em;
+  margin: 0;
+  color: #62a196;
+  background: #f2f5f6;
+}
+/* line 127, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form #message-pane {
+  display: block;
+  width: 99.25%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: white;
+  background: rgba(255, 255, 255, 0.9);
+  margin: 2px;
+  -moz-transition: height 0.5s ease-out;
+  -o-transition: height 0.5s ease-out;
+  -webkit-transition: height 0.5s ease-out;
+  transition: height 0.5s ease-out;
+}
+/* line 138, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form #message-pane .message {
+  display: block;
+  margin: 10px 1em;
+  font-size: 1.2em;
+  padding: 0.5em 1.5em 0.3em;
+  border-bottom: 1px solid #77bfff;
+  background: whitesmoke;
+  color: #00529b;
+  background-color: #bde5f8;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+}
+/* line 149, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form #message-pane .message .title {
+  font-size: 110%;
+  margin: 4px auto;
+}
+/* line 154, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form #message-pane .message.success {
+  background: #dff2bf;
+  border-color: #a2e757;
+  color: #4f8a10;
+}
+/* line 160, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form #message-pane .message.error {
+  background: #f6bcbc;
+  border-color: red;
+  color: darkred;
+}
+/* line 168, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put {
+  display: block;
+  width: 92%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+@media (min-width: 421px) {
+  /* line 168, ../../files_src/style/src/parte/_appform.scss */
+  body section#prihlaska .appform form .in-put {
+    display: -webkit-flex;
+    display: flex;
+  }
+}
+/* line 177, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.control {
+  margin-bottom: 0px;
+  padding: 1em;
+  background: #f2f5f6;
+  width: auto;
+}
+/* line 183, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.control button.confirm {
+  display: block;
+  margin: 0 auto;
+  background: #de1754;
+  color: whitesmoke;
+  font-size: 2em;
+  padding: 0.2em 0.6em;
+  border: 1px solid transparent;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-transition: color 0.2s ease-in-out, border 0.2s ease-in-out;
+  -o-transition: color 0.2s ease-in-out, border 0.2s ease-in-out;
+  -webkit-transition: color 0.2s ease-in-out, border 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, border 0.2s ease-in-out;
+}
+/* line 194, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.control button.confirm .fa {
+  margin-left: 10px;
+  position: relative;
+  top: 2px;
+}
+/* line 200, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.control button.confirm:hover {
+  border-color: black;
+  cursor: pointer;
+  color: gainsboro;
+}
+/* line 208, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.vyber {
+  min-height: 42px;
+  clear: left;
+  margin: 0.4em 2em;
+}
+/* line 213, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.vyber .day {
+  display: block;
+  float: left;
+  width: 125px;
+  margin: 4px;
+}
+/* line 220, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.vyber .day .item.title {
+  font-size: 120%;
+  font-weight: bold;
+}
+/* line 225, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.vyber .day .item label {
+  margin: 0;
+}
+/* line 228, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.vyber .day .item label .price {
+  white-space: nowrap;
+}
+/* line 236, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.price {
+  font-size: 1.6em;
+  padding: 10px 1em;
+}
+/* line 240, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put.price span {
+  font-weight: bold;
+}
+/* line 245, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item {
+  display: block;
+  -webkit-flex: 1;
+  flex: 1;
+  float: left;
+  margin: 2px;
+}
+/* line 251, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item.nolabel {
+  padding: 1em 0 0.3em;
+}
+/* line 254, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item.nolabel label {
+  margin: 0 10px;
+}
+/* line 259, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item.bigger {
+  -webkit-flex: 2;
+  flex: 2;
+}
+/* line 263, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item label {
+  display: block;
+  padding: 2px 0.25em;
+}
+/* line 267, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item label.checkbox {
+  margin: 5px 2px;
+}
+/* line 270, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item label.checkbox input {
+  width: auto;
+  float: left;
+  margin: 2px 6px 0;
+}
+/* line 278, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item input,
+body section#prihlaska .appform form .in-put .item textarea,
+body section#prihlaska .appform form .in-put .item select {
+  display: block;
+  width: 100%;
+  padding: 4px 0.5em;
+  font-size: 122%;
+  border: none;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-transition: background 0.3s ease-in-out;
+  -o-transition: background 0.3s ease-in-out;
+  -webkit-transition: background 0.3s ease-in-out;
+  transition: background 0.3s ease-in-out;
+}
+/* line 287, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item input.inline,
+body section#prihlaska .appform form .in-put .item textarea.inline,
+body section#prihlaska .appform form .in-put .item select.inline {
+  width: 4em !important;
+  float: none !important;
+  background: transparent;
+  border: 1px solid black;
+  border-width: 0 0 1px 0;
+  display: inline;
+  padding: 0 0.2em;
+  margin: 0 2px;
+  font-size: 90%;
+  text-align: center;
+}
+/* line 300, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item input:focus,
+body section#prihlaska .appform form .in-put .item input:active,
+body section#prihlaska .appform form .in-put .item textarea:focus,
+body section#prihlaska .appform form .in-put .item textarea:active,
+body section#prihlaska .appform form .in-put .item select:focus,
+body section#prihlaska .appform form .in-put .item select:active {
+  border-color: red;
+}
+/* line 306, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item textarea {
+  min-width: 92%;
+}
+/* line 309, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item textarea#input-note {
+  min-height: 5em;
+}
+/* line 314, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item .notice {
+  margin: 2px 0.2em;
+  font-size: 95%;
+  font-style: italic;
+}
+/* line 321, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item.error input,
+body section#prihlaska .appform form .in-put .item.error textarea,
+body section#prihlaska .appform form .in-put .item.error select,
+body section#prihlaska .appform form .in-put .item.error label.checkbox {
+  background: #f6bcbc;
+  border-color: red;
+  color: darkred;
+}
+/* line 327, ../../files_src/style/src/parte/_appform.scss */
+body section#prihlaska .appform form .in-put .item.error .notice {
+  color: red;
 }
