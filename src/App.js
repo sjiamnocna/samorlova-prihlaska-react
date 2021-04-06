@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import { TextField } from '@material-ui/core';
+import { FormControlLabel, TextField, Checkbox } from '@material-ui/core';
 
 function App() {
   const [name, setName] = useState('');
@@ -109,6 +109,40 @@ function App() {
               value={town}
               onChange={e => setTown(e.target.value)}
               required
+            />
+          </Grid>
+        </div>
+        <div className="in-put" style={{
+          margin: '5px auto'
+        }}>
+          <Grid item xs={6}>
+            <TextField
+              style={{
+                width: '97%',
+                'min-height': '120px'
+              }}
+              label='Poznámka k přihlášce'
+              value={postcode}
+              multiline
+              onChange={e => setPC(e.target.value)}
+              required
+            />
+          </Grid>
+          <Grid item xs={6} style={{
+            'text-align': 'right',
+            padding: '.5em 1em'
+          }}>
+            <FormControlLabel
+              control={<Checkbox checked={true} onChange={e => console.log(e)} name="checkedA" color="primary" style={{
+                padding: '2px'
+              }} />}
+              label="Potřebuju ubytování"
+              labelPlacement="start"
+            />
+            <FormControlLabel
+              control={<Checkbox checked={true} onChange={e => console.log(e)} name="checkedA" color="primary" />}
+              label="Jsem vegetarián"
+              labelPlacement="start" 
             />
           </Grid>
         </div>
