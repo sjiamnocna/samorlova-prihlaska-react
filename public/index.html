@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Web site created using create-react-app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -24,15 +22,120 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <section id="prihlaska">
-      <div class="appform">
-    </section>
-    <div id="root"></div>
-    <!--
+  <link rel="stylesheet" href="http://www.samorlova.cz/css/frontend.css">
+  <title>React App</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <section id="prihlaska">
+    <div class="container">
+      <h3 class="align-center">Přihláška</h3>
+
+      <div class="dblcol wide">
+        <div class="col info">
+          <div class="content">
+            <p class="highlighted">Registrace přes
+              internet je platná pouze v případě zaplacení částky na účet do 12. 8. 2021 nebo v hotovosti v
+              sídle organizátora.</p>
+            <ul>
+              <li>Celková cena při registraci předem:<p class="price">790 Kč</p>(účast. poplatek + nocleh +
+                jídlo)</li>
+              <li>Cena bez jídla:<p class="price">390 Kč</p>(účast. poplatek + nocleh)</li>
+              <li>Jídlo celkem:<p class="price">400 Kč</p>
+              </li>
+            </ul>
+
+            <p><b>Účastnický poplatek</b> – zahrnuje vstupné na&nbsp;veškerý program (workshopy, koncerty,
+              divadlo, semináře,
+              bohoslužby), WC, sprchy a&nbsp;nocleh.</p>
+            <p>Děti
+              <nobr>do 14 let (včetně)</nobr>
+              mají účastnický poplatek zdarma, uhradí pouze stravu.
+            </p>
+            <p>Registrace přes internet je platná pouze
+              <nobr>v případě</nobr>
+              zaplacení částky na&nbsp;účet
+              <nobr>do 12. 8. 2021 </nobr>
+              nebo
+              <nobr>v hotovosti</nobr>
+              v&nbsp;sídle organizátora.
+            </p>
+            <p><b>Ubytování</b> – k&nbsp;noclehu je možné využít vlastní stan nebo stany s&nbsp;podsadou
+              a&nbsp;prostor na&nbsp;pavlači
+              v&nbsp;kostele. Po&nbsp;dohodě můžeme
+              zapůjčit matraci nebo spacák.</p>
+            <p><b>Stravování</b> – místní kuchyně připravuje snídaně, obědy a&nbsp;večeře. K&nbsp;občerstvení je
+              možné využít služeb polní čajovny nebo bufet.</p>
+            <ul>
+              <li>
+                <b>Pokud máte zájem o vegetariánskou stravu,
+                  zatrhněte v&nbsp;přihlášce možnost "Jsem vegetarián".</b>
+              </li>
+              <li>
+                <b>Je možnost rezervovat pro vás tričko s motivy SAMu. Pokud jej chcete zarezervovat,
+                  napište to do
+                  poznámky k přihlášce.</b>
+              </li>
+            </ul>
+
+            <p><b>Ceny jednotlivých částí programu při&nbsp;registraci na místě:</b></p>
+
+            <table>
+              <tbody>
+                <tr>
+                  <td>dopolední blok programu:</td>
+                  <td>40&nbsp;,-&nbsp;Kč</td>
+                </tr>
+                <tr>
+                  <td>odpolední blok programu:</td>
+                  <td>45&nbsp;,-&nbsp;Kč</td>
+                </tr>
+                <tr>
+                  <td>večerní program (od 20<sup>00</sup>):</td>
+                  <td>90&nbsp;,-&nbsp;Kč</td>
+                </tr>
+                <tr>
+                  <td>celkem za program :</td>
+                  <td>480&nbsp;,-&nbsp;Kč</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p><b>Ceny jídel při&nbsp;registraci na místě:</b></p>
+
+            <table>
+              <tbody>
+                <tr>
+                  <td>snídaně:</td>
+                  <td>35&nbsp;,-&nbsp;Kč</td>
+                </tr>
+                <tr>
+                  <td>oběd:</td>
+                  <td>70&nbsp;,-&nbsp;Kč</td>
+                </tr>
+                <tr>
+                  <td>večeře:</td>
+                  <td>60&nbsp;,-&nbsp;Kč</td>
+                </tr>
+                <tr>
+                  <td>celkem za jídlo :</td>
+                  <td>495&nbsp;,-&nbsp;Kč</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <p class="highlighted">Počet jídel je omezený. Je tedy ve vašem zájmu se přihlásit co nejdříve.</p>
+
+            <p class="highlighted">Akce! Při registraci celého pobytu (stravy a programu) platí zvýhodněná cena
+              790 Kč.</p>
+          </div>
+        </div>
+        <div class="appform col pos-rel" />
+      </div>
+    </div>
+  </section>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -42,5 +145,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>

@@ -1,181 +1,268 @@
-<form>
-    <h3>Registrační formulář</h3>
-    <input type="hidden" name="related_post" value="504">
-    <div id="message-pane"></div>
-    <div id="form-items">
-        <div class="in-put">
-            <div class="item" id="jmeno">
+<link rel="stylesheet" href="http://www.samorlova.cz/css/frontend.css" />
+<section id="prihlaska">
+    <div class="container">
+        <h3 class="align-center">Přihláška</h3>
 
-                <label for="input-jmeno">Jméno</label><input type="text" name="jmeno" id="input-jmeno"
-                    placeholder="Jméno">
-            </div>
-            <div class="item" id="prijmeni">
+        <div class="dblcol wide">
+            <div class="col info">
+                <div class="content">
+                    <p class="highlighted">Registrace přes
+                        internet je platná pouze v případě zaplacení částky na účet do 12. 8. 2021 nebo v hotovosti v
+                        sídle organizátora.</p>
+                    <ul>
+                        <li>Celková cena při registraci předem:<p class="price">790 Kč</p>(účast. poplatek + nocleh +
+                            jídlo)</li>
+                        <li>Cena bez jídla:<p class="price">390 Kč</p>(účast. poplatek + nocleh)</li>
+                        <li>Jídlo celkem:<p class="price">400 Kč</p>
+                        </li>
+                    </ul>
 
-                <label for="input-prijmeni">Příjmení</label><input type="text" name="prijmeni" id="input-prijmeni"
-                    placeholder="Příjmení">
-            </div>
-        </div>
-        <div class="in-put">
-            <div class="item" id="email">
+                    <p><b>Účastnický poplatek</b> – zahrnuje vstupné na&nbsp;veškerý program (workshopy, koncerty,
+                        divadlo, semináře,
+                        bohoslužby), WC, sprchy a&nbsp;nocleh.</p>
+                    <p>Děti
+                        <nobr>do 14 let (včetně)</nobr>
+                        mají účastnický poplatek zdarma, uhradí pouze stravu.
+                    </p>
+                    <p>Registrace přes internet je platná pouze
+                        <nobr>v případě</nobr>
+                        zaplacení částky na&nbsp;účet
+                        <nobr>do 12. 8. 2021 </nobr>
+                        nebo
+                        <nobr>v hotovosti</nobr>
+                        v&nbsp;sídle organizátora.
+                    </p>
+                    <p><b>Ubytování</b> – k&nbsp;noclehu je možné využít vlastní stan nebo stany s&nbsp;podsadou
+                        a&nbsp;prostor na&nbsp;pavlači
+                        v&nbsp;kostele. Po&nbsp;dohodě můžeme
+                        zapůjčit matraci nebo spacák.</p>
+                    <p><b>Stravování</b> – místní kuchyně připravuje snídaně, obědy a&nbsp;večeře. K&nbsp;občerstvení je
+                        možné využít služeb polní čajovny nebo bufet.</p>
+                    <ul>
+                        <li>
+                            <b>Pokud máte zájem o vegetariánskou stravu,
+                                zatrhněte v&nbsp;přihlášce možnost "Jsem vegetarián".</b>
+                        </li>
+                        <li>
+                            <b>Je možnost rezervovat pro vás tričko s motivy SAMu. Pokud jej chcete zarezervovat,
+                                napište to do
+                                poznámky k přihlášce.</b>
+                        </li>
+                    </ul>
 
-                <label for="input-email">E-mail</label><input type="text" name="email" id="input-email"
-                    placeholder="E-mail">
-            </div>
-            <div class="item" id="bdate">
+                    <p><b>Ceny jednotlivých částí programu při&nbsp;registraci na místě:</b></p>
 
-                <label for="input-bdate">Rok narození</label><input type="number" name="bdate" id="input-bdate"
-                    placeholder="Rok narození">
-            </div>
-        </div>
-        <div class="in-put">
-            <div class="item" id="ulice">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>dopolední blok programu:</td>
+                                <td>40&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                            <tr>
+                                <td>odpolední blok programu:</td>
+                                <td>45&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                            <tr>
+                                <td>večerní program (od 20<sup>00</sup>):</td>
+                                <td>90&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                            <tr>
+                                <td>celkem za program :</td>
+                                <td>480&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <label for="input-ulice">Ulice</label><input type="text" name="ulice" id="input-ulice"
-                    placeholder="Ulice">
-            </div>
-            <div class="item" id="cp">
+                    <p><b>Ceny jídel při&nbsp;registraci na místě:</b></p>
 
-                <label for="input-cp">Č. P.</label><input type="text" name="cp" id="input-cp" placeholder="Č. P.">
-            </div>
-        </div>
-        <div class="in-put">
-            <div class="item" id="psc">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>snídaně:</td>
+                                <td>35&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                            <tr>
+                                <td>oběd:</td>
+                                <td>70&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                            <tr>
+                                <td>večeře:</td>
+                                <td>60&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                            <tr>
+                                <td>celkem za jídlo :</td>
+                                <td>495&nbsp;,-&nbsp;Kč</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                <label for="input-psc">PSČ</label><input type="text" name="psc" id="input-psc" placeholder="PSČ">
-            </div>
-            <div class="item" id="mesto">
+                    <p class="highlighted">Počet jídel je omezený. Je tedy ve vašem zájmu se přihlásit co nejdříve.</p>
 
-                <label for="input-mesto">Město</label><input type="text" name="mesto" id="input-mesto"
-                    placeholder="Město">
-            </div>
-        </div>
-        <div class="in-put">
-            <div class="item" id="note">
-
-                <label for="input-note">Poznámka k přihlášce</label><textarea name="note" id="input-note"></textarea>
-            </div>
-            <div class="item nolabel" id="options">
-
-                <label class="checkbox" for="input-ch-acco"><input type="checkbox" name="input-ch-acco"
-                        id="input-ch-acco">Potřebuju ubytování</label>
-                <label class="checkbox" for="input-ch-vege"><input type="checkbox" name="input-ch-vege"
-                        id="input-ch-vege">Jsem vegetarián</label>
-                <label for="support">
-
-                    Chci přispět na organizaci SAMu částkou <input type="number" class="inline sum" name="support"
-                        id="support-amount">,- Kč
-
-                </label>
-            </div>
-        </div>
-        <div class="in-put vyber">
-
-
-            <div class="day">
-
-                <div class="title item">Čtvrtek 13.8.</div>
-
-                <div class="item">
-
-                    <label class="checkbox" for="input-ch-program-0-"><input type="checkbox" name="input-ch-program[0]"
-                            id="input-ch-program-0-" data-price="80" class="sum program">Program <span
-                            class="price">(80,- Kč)</span></label>
+                    <p class="highlighted">Akce! Při registraci celého pobytu (stravy a programu) platí zvýhodněná cena
+                        790 Kč.</p>
                 </div>
-
-                <div class="item"><label class="checkbox" for="input-ch-strava-0-0-"><input type="checkbox"
-                            name="input-ch-strava[0.0]" id="input-ch-strava-0-0-" data-price="50"
-                            class="sum strava">Večeře <span class="price">(50,- Kč)</span></label></div>
             </div>
 
+            <div class="appform col pos-rel">
+                <form>
+                    <h3>Registrační formulář</h3>
+                    <input type="hidden" name="related_post" value="504">
+                    <div id="message-pane"></div>
+                    <div id="form-items">
+                        <div class="in-put">
+                            <div class="item" id="jmeno">
+                                <label for="input-jmeno">
+                                    Jméno</label><input type="text" name="jmeno" id="input-jmeno" placeholder="Jméno">
+                            </div>
+                            <div class="item" id="prijmeni">
+                                <label for="input-prijmeni">Příjmení</label><input type="text" name="prijmeni"
+                                    id="input-prijmeni" placeholder="Příjmení">
+                            </div>
+                        </div>
+                        <div class="in-put">
+                            <div class="item" id="email">
+                                <label for="input-email">E-mail</label><input type="text" name="email" id="input-email"
+                                    placeholder="E-mail">
+                            </div>
+                            <div class="item" id="bdate">
+                                <label for="input-bdate">Rok narození</label><input type="number" name="bdate"
+                                    id="input-bdate" placeholder="Rok narození">
+                            </div>
+                        </div>
+                        <div class="in-put">
+                            <div class="item" id="ulice">
+                                <label for="input-ulice">Ulice</label><input type="text" name="ulice" id="input-ulice"
+                                    placeholder="Ulice">
+                            </div>
+                            <div class="item" id="cp">
+                                <label for="input-cp">Č. P.</label><input type="text" name="cp" id="input-cp"
+                                    placeholder="Č. P.">
+                            </div>
+                        </div>
+                        <div class="in-put">
+                            <div class="item" id="psc">
+                                <label for="input-psc">PSČ</label><input type="text" name="psc" id="input-psc"
+                                    placeholder="PSČ">
+                            </div>
+                            <div class="item" id="mesto">
+                                <label for="input-mesto">Město</label><input type="text" name="mesto" id="input-mesto"
+                                    placeholder="Město">
+                            </div>
+                        </div>
+                        <div class="in-put">
+                            <div class="item" id="note">
+                                <label for="input-note">Poznámka k přihlášce</label><textarea name="note"
+                                    id="input-note"></textarea>
+                            </div>
+                            <div class="item nolabel" id="options">
+                                <label class="checkbox" for="input-ch-acco"><input type="checkbox" name="input-ch-acco"
+                                        id="input-ch-acco">Potřebuju ubytování</label> <label class="checkbox"
+                                    for="input-ch-vege"><input type="checkbox" name="input-ch-vege"
+                                        id="input-ch-vege">Jsem vegetarián</label> <label for="support">
+                                    Chci přispět na organizaci SAMu částkou <input type="number" class="inline sum"
+                                        name="support" id="support-amount">,- Kč
+                                </label>
+                            </div>
+                        </div>
+                        <div class="in-put vyber">
+
+                            <div class="day">
+                                <div class="title item">Čtvrtek 13.8.</div>
+                                <div class="item">
+                                    <label class="checkbox" for="input-ch-program-0-"><input type="checkbox"
+                                            name="input-ch-program[0]" id="input-ch-program-0-" data-price="80"
+                                            class="sum program">Program <span class="price">(80,- Kč)</span></label>
+                                </div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-0-0-"><input
+                                            type="checkbox" name="input-ch-strava[0.0]" id="input-ch-strava-0-0-"
+                                            data-price="50" class="sum strava">Večeře <span class="price">(50,-
+                                            Kč)</span></label></div>
+                            </div>
 
 
-            <div class="day">
-
-                <div class="title item">Pátek 14.8.</div>
-
-                <div class="item">
-
-                    <label class="checkbox" for="input-ch-program-1-"><input type="checkbox" name="input-ch-program[1]"
-                            id="input-ch-program-1-" data-price="140" class="sum program">Program <span
-                            class="price">(140,- Kč)</span></label>
-                </div>
-
-                <div class="item"><label class="checkbox" for="input-ch-strava-1-0-"><input type="checkbox"
-                            name="input-ch-strava[1.0]" id="input-ch-strava-1-0-" data-price="25"
-                            class="sum strava">Snídaně <span class="price">(25,- Kč)</span></label></div>
-                <div class="item"><label class="checkbox" for="input-ch-strava-1-1-"><input type="checkbox"
-                            name="input-ch-strava[1.1]" id="input-ch-strava-1-1-" data-price="60"
-                            class="sum strava">Oběd <span class="price">(60,- Kč)</span></label></div>
-                <div class="item"><label class="checkbox" for="input-ch-strava-1-2-"><input type="checkbox"
-                            name="input-ch-strava[1.2]" id="input-ch-strava-1-2-" data-price="50"
-                            class="sum strava">Večeře <span class="price">(50,- Kč)</span></label></div>
-            </div>
-
+                            <div class="day">
+                                <div class="title item">Pátek 14.8.</div>
+                                <div class="item">
+                                    <label class="checkbox" for="input-ch-program-1-"><input type="checkbox"
+                                            name="input-ch-program[1]" id="input-ch-program-1-" data-price="140"
+                                            class="sum program">Program <span class="price">(140,- Kč)</span></label>
+                                </div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-1-0-"><input
+                                            type="checkbox" name="input-ch-strava[1.0]" id="input-ch-strava-1-0-"
+                                            data-price="25" class="sum strava">Snídaně <span class="price">(25,-
+                                            Kč)</span></label></div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-1-1-"><input
+                                            type="checkbox" name="input-ch-strava[1.1]" id="input-ch-strava-1-1-"
+                                            data-price="60" class="sum strava">Oběd <span class="price">(60,-
+                                            Kč)</span></label></div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-1-2-"><input
+                                            type="checkbox" name="input-ch-strava[1.2]" id="input-ch-strava-1-2-"
+                                            data-price="50" class="sum strava">Večeře <span class="price">(50,-
+                                            Kč)</span></label></div>
+                            </div>
 
 
-            <div class="day">
-
-                <div class="title item">Sobota 15.8.</div>
-
-                <div class="item">
-
-                    <label class="checkbox" for="input-ch-program-2-"><input type="checkbox" name="input-ch-program[2]"
-                            id="input-ch-program-2-" data-price="140" class="sum program">Program <span
-                            class="price">(140,- Kč)</span></label>
-                </div>
-
-                <div class="item"><label class="checkbox" for="input-ch-strava-2-0-"><input type="checkbox"
-                            name="input-ch-strava[2.0]" id="input-ch-strava-2-0-" data-price="25"
-                            class="sum strava">Snídaně <span class="price">(25,- Kč)</span></label></div>
-                <div class="item"><label class="checkbox" for="input-ch-strava-2-1-"><input type="checkbox"
-                            name="input-ch-strava[2.1]" id="input-ch-strava-2-1-" data-price="60"
-                            class="sum strava">Oběd <span class="price">(60,- Kč)</span></label></div>
-                <div class="item"><label class="checkbox" for="input-ch-strava-2-2-"><input type="checkbox"
-                            name="input-ch-strava[2.2]" id="input-ch-strava-2-2-" data-price="50"
-                            class="sum strava">Večeře <span class="price">(50,- Kč)</span></label></div>
-            </div>
-
+                            <div class="day">
+                                <div class="title item">Sobota 15.8.</div>
+                                <div class="item">
+                                    <label class="checkbox" for="input-ch-program-2-"><input type="checkbox"
+                                            name="input-ch-program[2]" id="input-ch-program-2-" data-price="140"
+                                            class="sum program">Program <span class="price">(140,- Kč)</span></label>
+                                </div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-2-0-"><input
+                                            type="checkbox" name="input-ch-strava[2.0]" id="input-ch-strava-2-0-"
+                                            data-price="25" class="sum strava">Snídaně <span class="price">(25,-
+                                            Kč)</span></label></div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-2-1-"><input
+                                            type="checkbox" name="input-ch-strava[2.1]" id="input-ch-strava-2-1-"
+                                            data-price="60" class="sum strava">Oběd <span class="price">(60,-
+                                            Kč)</span></label></div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-2-2-"><input
+                                            type="checkbox" name="input-ch-strava[2.2]" id="input-ch-strava-2-2-"
+                                            data-price="50" class="sum strava">Večeře <span class="price">(50,-
+                                            Kč)</span></label></div>
+                            </div>
 
 
-            <div class="day">
-
-                <div class="title item">Neděle 16.8.</div>
-
-                <div class="item">
-
-                    <label class="checkbox" for="input-ch-program-3-"><input type="checkbox" name="input-ch-program[3]"
-                            id="input-ch-program-3-" data-price="30" class="sum program">Program <span
-                            class="price">(30,- Kč)</span></label>
-                </div>
-
-                <div class="item"><label class="checkbox" for="input-ch-strava-3-0-"><input type="checkbox"
-                            name="input-ch-strava[3.0]" id="input-ch-strava-3-0-" data-price="25"
-                            class="sum strava">Snídaně <span class="price">(25,- Kč)</span></label></div>
-                <div class="item"><label class="checkbox" for="input-ch-strava-3-1-"><input type="checkbox"
-                            name="input-ch-strava[3.1]" id="input-ch-strava-3-1-" data-price="60"
-                            class="sum strava">Oběd <span class="price">(60,- Kč)</span></label></div>
-            </div>
+                            <div class="day">
+                                <div class="title item">Neděle 16.8.</div>
+                                <div class="item">
+                                    <label class="checkbox" for="input-ch-program-3-"><input type="checkbox"
+                                            name="input-ch-program[3]" id="input-ch-program-3-" data-price="30"
+                                            class="sum program">Program <span class="price">(30,- Kč)</span></label>
+                                </div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-3-0-"><input
+                                            type="checkbox" name="input-ch-strava[3.0]" id="input-ch-strava-3-0-"
+                                            data-price="25" class="sum strava">Snídaně <span class="price">(25,-
+                                            Kč)</span></label></div>
+                                <div class="item"><label class="checkbox" for="input-ch-strava-3-1-"><input
+                                            type="checkbox" name="input-ch-strava[3.1]" id="input-ch-strava-3-1-"
+                                            data-price="60" class="sum strava">Oběd <span class="price">(60,-
+                                            Kč)</span></label></div>
+                            </div>
 
 
-        </div>
-        <div class="in-put price"></div>
-        <div class="in-put control">
-            <div class="item">
+                        </div>
+                        <div class="in-put price"></div>
+                        <div class="in-put control">
+                            <div class="item">
+                                <label class="checkbox" for="input-ch-gdpr"><input type="checkbox" name="input-ch-gdpr"
+                                        id="input-ch-gdpr">Souhlasím se zpracováním mých osobních údajů pro potřeby
+                                    organizace SAMu.</label>
+                            </div>
+                            <div class="item">
+                                <button class="confirm">Registrovat<i class="fa fa-chevron-circle-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
 
-                <label class="checkbox" for="input-ch-gdpr"><input type="checkbox" name="input-ch-gdpr"
-                        id="input-ch-gdpr">Souhlasím se zpracováním mých osobních údajů pro potřeby organizace
-                    SAMu.</label>
-            </div>
-            <div class="item">
 
-                <button class="confirm">Registrovat<i class="fa fa-chevron-circle-right"></i></button>
+                    <input type="hidden" name="related_post" value="504">
+                    <input type="hidden" id="wp_nonce" name="wp_nonce" value="148be4e644"><input type="hidden"
+                        name="_wp_http_referer" value="/"><input type="hidden" id="wp_nonce" name="wp_nonce"
+                        value="148be4e644"><input type="hidden" name="_wp_http_referer" value="/">
+                </form>
             </div>
         </div>
     </div>
-
-
-    <input type="hidden" name="related_post" value="504">
-    <input type="hidden" id="wp_nonce" name="wp_nonce" value="148be4e644"><input type="hidden" name="_wp_http_referer"
-        value="/"><input type="hidden" id="wp_nonce" name="wp_nonce" value="148be4e644"><input type="hidden"
-        name="_wp_http_referer" value="/">
-</form>
+</section>
