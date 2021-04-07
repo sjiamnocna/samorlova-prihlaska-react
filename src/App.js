@@ -11,7 +11,11 @@ function App() {
   const [street, setStreet] = useState('');
   const [streetNo, setStreetNo] = useState('');
   const [postcode, setPC] = useState('');
+  const [note, setNote] = useState('');
   const [town, setTown] = useState('');
+  const [accomodation, setAccomodation] = useState(1);
+  const [vege, setVege] = useState(0);
+  
   return (
     <form className="App">
       <h3 style={{
@@ -122,9 +126,9 @@ function App() {
                 'min-height': '120px'
               }}
               label='Poznámka k přihlášce'
-              value={postcode}
+              value={note}
               multiline
-              onChange={e => setPC(e.target.value)}
+              onChange={e => setNote(e.target.value)}
               required
             />
           </Grid>
@@ -133,14 +137,14 @@ function App() {
             padding: '.5em 1em'
           }}>
             <FormControlLabel
-              control={<Checkbox checked={true} onChange={e => console.log(e)} name="checkedA" color="primary" style={{
+              control={<Checkbox checked={accomodation} onChange={e => setAccomodation(e.target.checked)} name="checkedA" color="primary" style={{
                 padding: '2px'
               }} />}
               label="Potřebuju ubytování"
               labelPlacement="start"
             />
             <FormControlLabel
-              control={<Checkbox checked={true} onChange={e => console.log(e)} name="checkedA" color="primary" />}
+              control={<Checkbox checked={vege} onChange={e => setVege(e.target.checked)} name="checkedA" color="primary" />}
               label="Jsem vegetarián"
               labelPlacement="start" 
             />
