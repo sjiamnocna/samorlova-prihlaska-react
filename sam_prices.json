@@ -1,0 +1,62 @@
+[
+    {
+        "title": "Čtvrtek 15.8.",
+        "price": 65,
+        "options": [
+            {
+                "title": "Večeře",
+                "price": 35
+            }
+        ]
+    },
+    {
+        "title": "Pátek 16.8.",
+        "price": 145,
+        "options": [
+            {
+                "title": "Snídaně",
+                "price": 15
+            },
+            {
+                "title": "Oběd",
+                "price": 40
+            },
+            {
+                "title": "Večeře",
+                "price": 30
+            }
+        ]
+    },
+    {
+        "title": "Sobota 17.8.",
+        "price": 145,
+        "options": [
+            {
+                "title": "Snídaně",
+                "price": 15
+            },
+            {
+                "title": "Oběd",
+                "price": 40
+            },
+            {
+                "title": "Večeře",
+                "price": 30
+            }
+        ]
+    },
+    {
+        "title": "Neděle 18.8.",
+        "price": 35,
+        "options": [
+            {
+                "title": "Snídaně",
+                "price": 15
+            },
+            {
+                "title": "Oběd",
+                "price": 40
+            }
+        ]
+    }
+]

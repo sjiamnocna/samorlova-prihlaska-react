@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import './form-input.scss';
-
-const FormInput = ({handleChange, label, ...otherProps}) => (
-  <div class="form-input">
-    <label className={`${otherProps.value.length ? 'shrink':''} form-input-label`}>
-      <span className="label-text">
-        {label}
-      </span>
-      <input onChange={handleChange} {...otherProps} />
-    </label>
-  </div>
-);
+const FormInput = ({ handleChange, label, ...otherProps }) => {
+  const [focused, setFocused] = useState(false);
+  return (
+    <div class="input-container">
+      <label className={focused || otherProps.value.length ? 'shrink' : null}>
+        <span className="label-text">
+          {label}
+        </span>
+        <input onChange={handleChange} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} {...otherProps} />
+      </label>
+    </div>
+  );
+};
 
 export default FormInput;

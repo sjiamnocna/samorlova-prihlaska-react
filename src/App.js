@@ -2,18 +2,20 @@ import React, { useContext } from 'react'
 
 import { FormContext } from './context/form.context';
 
-import FormInput from './components/form-input/form-input.comp';
-
 import './App.scss';
+import FormPage from './steps/form/form.page';
 
-function App() {
-  const { formState, setFormState, credentials, setCredentials, program, setProgram, strava, setStrava } = useContext(FormContext);
+const App = () => {
+  const { formState } = useContext(FormContext);
+
   return (
-    <form className="App">
-      <h3 style={{
-        marginBottom: '10px'
-      }}>Registrační formulář</h3>
-      <FormInput value={credentials.name} onChange={e => setCredentials('name', e.target.value)} />
+    <form className="prihlaska">
+      <h3>Registrační formulář</h3>
+      {
+        formState === 'initial' ?
+          <FormPage /> :
+          null
+      }
     </form >
   );
 }
