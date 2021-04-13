@@ -9,7 +9,7 @@ const App = () => {
   const { formState } = useContext(FormContext);
 
   return (
-    <form className="prihlaska">
+    <form className="appform">
       <h3>Registrační formulář</h3>
       {
         formState === 'initial' ?

@@ -26,7 +26,8 @@ const checkDetails = {
     town: {
         regex: /^([A-ZŠČŘŽ][a-zěščřžýáíé\d-]+ ?)+$/,
         errorMessage: "Používejte prosím pouze znaky české abecedy, mezeru anebo pomlčku. Název by měl začít velkým písmenem"
-    }
+    },
+    note: {}
 };
 
 export default checkDetails;

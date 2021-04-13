@@ -6,7 +6,7 @@ export const FormContext = createContext({
     formState: '',
     setFormState: () => {},
     credentials: {},
-    setCredentials: (tag, value) => {},
+    setCredentials: () => {},
     program: {},
     setProgram: () => {},
     strava: {},
@@ -27,8 +27,9 @@ const FormContextProvider = ({ children }) => {
         streetNo: '',
         postcode: '',
         town: '',
-        accomodation: true,
-        vegetarian: false
+        note: '',
+        accomodation: null,
+        vegetarian: null
     });
     const setCredentials = (tag, value) => {
         let fieldDetails = checkDetails[tag];
