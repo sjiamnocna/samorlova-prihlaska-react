@@ -5,6 +5,7 @@ import checkDetails from './form.check';
 export const FormContext = createContext({
     formState: '',
     setFormState: () => {},
+    formPrices: {},
     credentials: {},
     setCredentials: () => {},
     program: {},
@@ -16,6 +17,11 @@ export const FormContext = createContext({
 });
 
 const FormContextProvider = ({ children }) => {
+    // use key to secure POST to backend
+    const [sessionKey, changeSessionKey] = useState('ahoj');
+
+    const [formPrices, setFormPrices] = useState({});
+
     const [formState, setFormState] = useState('initial');
 
     const [credentials, setCredentialsHook] = useState({
@@ -50,6 +56,23 @@ const FormContextProvider = ({ children }) => {
 
     const [program, setProgram] = useState({});
 
+    useEffect(() => {
+        // get session key with API key
+        fetch('/prihlaska.php', {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            referrerPolicy: 'no-referrer',
+            body: JSON.stringify({
+                action: 'getSessionKey',
+                key: sessionKey
+            })
+        }).then(data => data.text())
+        .then(data => changeSessionKey(data));
+    }, [sessionKey]);
+
     const sumStrava = useMemo(() => {
 
     }, [strava]),
@@ -63,6 +86,7 @@ const FormContextProvider = ({ children }) => {
         <FormContext.Provider value={{
             formState,
             setFormState,
+            formPrices,
             credentials,
             setCredentials,
             program,
