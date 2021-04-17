@@ -1,5 +1,6 @@
 section#prihlaska {
   .appform {
+    overflow: hidden;
     h3 {
       padding-top: 0;
       margin-bottom: 10px;
@@ -10,9 +11,22 @@ section#prihlaska {
       letter-spacing: 3px;
     }
     div.form-content {
+      position: absolute;
+      left: 0;
+      transition: all .3s ease-in-out;
+      padding: .5em 0 10px;
       overflow: hidden;
       div.form-group {
-        margin: 0.4em 5px;
+        margin: 0.5em 5px;
+        .form-item{
+          .input-container{
+            border:solid transparent;
+            border-width: 0 0 2px;
+            &.error{
+              border-color: red;
+            }
+          }
+        }
         &.double {
           display: flex;
           justify-content: space-around;
@@ -38,6 +52,8 @@ section#prihlaska {
             }
             .checkbox-container {
               margin: 0.35em;
+              clear: both;
+              overflow: hidden;
               label {
                 display: block;
                 cursor: pointer;
@@ -47,8 +63,6 @@ section#prihlaska {
                 }
               }
               &.right {
-                clear: both;
-                overflow: hidden;
                 text-align: right;
                 input {
                   float: right;
@@ -84,10 +98,10 @@ section#prihlaska {
             }
             &.shrink {
               span.label-text {
-                top: -0.8em;
+                top: -0.7em;
                 left: 0.5em;
                 font-size: 80%;
-                color: black;
+                color: #282828;
               }
             }
           }

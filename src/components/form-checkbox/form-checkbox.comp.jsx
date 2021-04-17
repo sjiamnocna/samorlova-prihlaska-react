@@ -7,7 +7,6 @@ const Checkbox = ({ label, checked, handleChange, ...otherProps }) => {
         <input
           type="checkbox"
           checked={checked}
-          onChange={handleChange}
           {...otherProps}
         />
         {label}

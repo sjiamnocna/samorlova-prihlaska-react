@@ -19,28 +19,32 @@ const FormContextProvider = ({ children }) => {
     const [formState, setFormState] = useState('initial');
 
     const [credentials, setCredentialsHook] = useState({
-        name: '',
-        sname: '',
-        mail: '',
-        byear: '',
-        street: '',
-        streetNo: '',
-        postcode: '',
-        town: '',
-        note: '',
-        accomodation: null,
-        vegetarian: null
+        name: [],
+        sname: [],
+        mail: [],
+        byear: [],
+        street: [],
+        streetNo: [],
+        postcode: [],
+        town: [],
+        note: [],
+        accomodation: [true],
+        vegetarian: [false]
     });
     const setCredentials = (tag, value) => {
-        let fieldDetails = checkDetails[tag];
+        let fieldDetails = checkDetails[tag],
+        error = 0;
 
         if (fieldDetails === undefined) {
             // not allowed field
             return;
         }
 
-        setCredentialsHook({ ...credentials, [tag]: value });
+        if (fieldDetails.regex && value.length > 1){
+            error = !fieldDetails.regex.test( value );
+        }
 
+        setCredentialsHook({ ...credentials, [tag]: [value, error] });
     };
     const [strava, setStrava] = useState({});
 

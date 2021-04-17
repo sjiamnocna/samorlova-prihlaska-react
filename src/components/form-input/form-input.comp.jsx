@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 
-const FormInput = ({ textarea, handleChange, label, ...otherProps }) => {
+const FormInput = ({ textarea, handleChange, label, error, ...otherProps }) => {
   const [focused, setFocused] = useState(false);
+  // array of values is empty
+  otherProps.value = otherProps.value ?? '';
   return (
-    <div className="input-container">
+    <div className={`input-container${error ? " error": ""}`}>
       <label className={focused || otherProps.value.length ? 'shrink' : null}>
         <span className="label-text">
           {label}

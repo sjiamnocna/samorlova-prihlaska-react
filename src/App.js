@@ -8,14 +8,14 @@ import FormPage from './steps/form/form.page';
 const App = () => {
   const { formState } = useContext(FormContext);
 
+  const Page = {
+    'initial': <FormPage />
+  };
+  
   return (
     <form className="appform">
       <h3>Registrační formulář</h3>
-      {
-        formState === 'initial' ?
-          <FormPage /> :
-          null
-      }
+      {Page[formState]}
     </form >
   );
 }
