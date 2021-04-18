@@ -2,8 +2,10 @@ import React, { useState, useMemo, useEffect, createContext } from 'react'
 
 import checkDetails from './form.check';
 
+import prices from '../sam_prices.json';
+
 export const FormContext = createContext({
-    formState: '',
+    formState: 0,
     setFormState: () => {},
     formPrices: {},
     credentials: {},
@@ -13,14 +15,16 @@ export const FormContext = createContext({
     strava: {},
     setStrava: () => {},
     sumStrava: 0,
-    sumProgram: 0
+    sumProgram: 0,
+    total: 0
 });
 
 const FormContextProvider = ({ children }) => {
-    // use key to secure POST to backend
-    const [sessionKey, changeSessionKey] = useState('ahoj');
+    // use initial key to get session key secure POST request to backend
+    const [sessionKey, changeSessionKey] = useState('prihlaska-sam');
 
-    const [formPrices, setFormPrices] = useState({});
+    // want to use AJAX later
+    const [formPrices, setFormPrices] = useState(prices);
 
     const [formState, setFormState] = useState('initial');
 
@@ -37,6 +41,7 @@ const FormContextProvider = ({ children }) => {
         accomodation: [true],
         vegetarian: [false]
     });
+
     const setCredentials = (tag, value) => {
         let fieldDetails = checkDetails[tag],
         error = 0;
@@ -54,11 +59,25 @@ const FormContextProvider = ({ children }) => {
     };
     const [strava, setStrava] = useState({});
 
-    const [program, setProgram] = useState({});
+    const [program, setProgramHook] = useState({});
+
+    const setProgram = (tag, value) => {
+
+        if(value){
+            let newStrava = strava;
+            prices[tag].options.map((item, i) => {
+                console.log(i);
+                newStrava[tag+'.'+i] = value;
+            });
+            setStrava(newStrava);
+        }
+
+        setProgramHook({...program, [tag]: value});
+    };
 
     useEffect(() => {
         // get session key with API key
-        fetch('/prihlaska.php', {
+        fetch('http://localhost:8000/prihlaska.php', {
             method: 'POST',
             credentials: 'same-origin',
             headers: {
@@ -69,15 +88,30 @@ const FormContextProvider = ({ children }) => {
                 action: 'getSessionKey',
                 key: sessionKey
             })
-        }).then(data => data.text())
-        .then(data => changeSessionKey(data));
+        }).then(data => data.json())
+        .then(data => changeSessionKey(data.key));
     }, [sessionKey]);
 
     const sumStrava = useMemo(() => {
+        let res = 0;
+        for (let day in prices){
+            prices[day].options.map((item, i) => {
+                if(strava[day + '.' + i]){
+                    res += prices[day].options[i].price;
+                }
+            });
+        }
+        return res;
+    }, [strava]);
 
-    }, [strava]),
-    sumProgram = useMemo(() => {
-
+    const sumProgram = useMemo(() => {
+        let res = 0;
+        for (let day in prices){
+            if (program[day]){
+                res+=prices[day].price;
+            }
+        }
+        return res;
     }, [program]);
 
     const total = useMemo(() => sumStrava + sumProgram, [sumStrava, sumProgram]);
@@ -92,7 +126,10 @@ const FormContextProvider = ({ children }) => {
             program,
             setProgram,
             strava,
-            setStrava
+            setStrava,
+            sumProgram,
+            sumStrava,
+            total
         }}>
             {children}
         </FormContext.Provider>

@@ -8,7 +8,7 @@ import Checkbox from "../../components/form-checkbox/form-checkbox.comp";
 const FormItem = ({ children }) => <div className="form-item">{children}</div>;
 
 const FormPage = () => {
-  const { credentials, setCredentials } = useContext(FormContext);
+  const { formPrices, credentials, setCredentials, strava, setStrava, program, setProgram } = useContext(FormContext);
   useEffect(() => {});
   return (
     <div className="form-content">
@@ -104,9 +104,36 @@ const FormPage = () => {
           <Checkbox
             checked={credentials.vegetarian[0] ?? 0}
             onChange={(e) => setCredentials("vegetarian", e.target.checked)}
-            label="Potřebuju ubytování"
+            label="Jsem vegetarián"
           />
         </FormItem>
+      </div>
+      <div className="form-group double">
+        {formPrices.map((item, i) => (
+          <FormItem key={i}>
+            <h4>{item.title}</h4>
+            <Checkbox
+              centered
+              checked={program[i] ?? 0}
+              onChange={(e) => setProgram(i, e.target.checked)}
+              label="Program"
+              price={item.price}
+            />
+            {
+              item.options.map((subitem, j) => (
+                  <Checkbox
+                    key={i+'.'+j}
+                    centered
+                    checked={strava[[i+'.'+j]] ?? 0}
+                    onChange={(e) => setStrava({...strava, [i+'.'+j]: e.target.checked})}
+                    label={subitem.title}
+                    price={subitem.price}
+                  />
+                )
+              )
+            }
+          </FormItem>
+        ))}
       </div>
     </div>
   );
