@@ -116,5 +116,40 @@ section#prihlaska {
         }
       }
     }
+    .control-bar {
+      clear: both;
+      overflow: hidden;
+      background: wheat;
+      padding: 10px;
+      display: block;
+      width: 100%;
+      p.sum{
+        font-size: 120%;
+        text-align: center;
+        margin: .4em 0 0;
+      }
+      button.submit {
+        margin: 0 1.4em 0 0.6em;
+        font-size: 1.3em;
+        border-radius: 4px;
+        border: 2px solid gray;
+        float: right;
+        transition: all .2s ease-in-out;
+        cursor: pointer;
+        span {
+          display: inline-block;
+          margin: 0.2em;
+        }
+        svg {
+          float: right;
+          margin: 3.3% auto 0;
+        }
+        &:hover{
+          background-color: whitesmoke;
+          color: gray;
+          margin:0 1em 0 1em;
+        }
+      }
+    }
   }
 }

@@ -4,12 +4,11 @@ import { FormContext } from "../../context/form.context";
 
 import FormInput from "../../components/form-input/form-input.comp";
 import Checkbox from "../../components/form-checkbox/form-checkbox.comp";
-
-const FormItem = ({ children }) => <div className="form-item">{children}</div>;
+import RegistrationItems from "../../components/registration-items/registration-items";
+import FormItem from "../../components/form-item/form-item.comp";
 
 const FormPage = () => {
-  const { formPrices, credentials, setCredentials, strava, setStrava, program, setProgram } = useContext(FormContext);
-  useEffect(() => {});
+  const { credentials, setCredentials } = useContext(FormContext);
   return (
     <div className="form-content">
       <div className="form-group double">
@@ -108,33 +107,7 @@ const FormPage = () => {
           />
         </FormItem>
       </div>
-      <div className="form-group double">
-        {formPrices.map((item, i) => (
-          <FormItem key={i}>
-            <h4>{item.title}</h4>
-            <Checkbox
-              centered
-              checked={program[i] ?? 0}
-              onChange={(e) => setProgram(i, e.target.checked)}
-              label="Program"
-              price={item.price}
-            />
-            {
-              item.options.map((subitem, j) => (
-                  <Checkbox
-                    key={i+'.'+j}
-                    centered
-                    checked={strava[[i+'.'+j]] ?? 0}
-                    onChange={(e) => setStrava({...strava, [i+'.'+j]: e.target.checked})}
-                    label={subitem.title}
-                    price={subitem.price}
-                  />
-                )
-              )
-            }
-          </FormItem>
-        ))}
-      </div>
+      <RegistrationItems />
     </div>
   );
 };

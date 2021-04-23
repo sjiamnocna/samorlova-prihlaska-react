@@ -5,15 +5,17 @@ import checkDetails from './form.check';
 import prices from '../sam_prices.json';
 
 export const FormContext = createContext({
-    formState: 0,
-    setFormState: () => {},
+    loading: 0,
+    setLoading: () => { },
+    dataCorrect: false,
+    setIsCorrect: () => { },
     formPrices: {},
     credentials: {},
-    setCredentials: () => {},
+    setCredentials: () => { },
     program: {},
-    setProgram: () => {},
+    setProgram: () => { },
     strava: {},
-    setStrava: () => {},
+    setStrava: () => { },
     sumStrava: 0,
     sumProgram: 0,
     total: 0
@@ -26,7 +28,9 @@ const FormContextProvider = ({ children }) => {
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState(prices);
 
-    const [formState, setFormState] = useState('initial');
+    const [dataCorrect, setDataCorrect] = useState(false);
+
+    const [loading, setLoading] = useState(0);
 
     const [credentials, setCredentialsHook] = useState({
         name: [],
@@ -44,15 +48,15 @@ const FormContextProvider = ({ children }) => {
 
     const setCredentials = (tag, value) => {
         let fieldDetails = checkDetails[tag],
-        error = 0;
+            error = 0;
 
         if (fieldDetails === undefined) {
             // not allowed field
             return;
         }
 
-        if (fieldDetails.regex && value.length > 1){
-            error = !fieldDetails.regex.test( value );
+        if (fieldDetails.regex && value.length > 1) {
+            error = !fieldDetails.regex.test(value);
         }
 
         setCredentialsHook({ ...credentials, [tag]: [value, error] });
@@ -63,16 +67,14 @@ const FormContextProvider = ({ children }) => {
 
     const setProgram = (tag, value) => {
 
-        if(value){
-            let newStrava = strava;
-            prices[tag].options.map((item, i) => {
-                console.log(i);
-                newStrava[tag+'.'+i] = value;
-            });
-            setStrava(newStrava);
-        }
 
-        setProgramHook({...program, [tag]: value});
+        let newValues = strava;
+        formPrices[tag].options.map((item, i) => {
+            newValues[[tag + '.' + i]] = value;
+        });
+        setStrava(newValues);
+
+        setProgramHook({ ...program, [tag]: value });
     };
 
     useEffect(() => {
@@ -89,26 +91,26 @@ const FormContextProvider = ({ children }) => {
                 key: sessionKey
             })
         }).then(data => data.json())
-        .then(data => changeSessionKey(data.key));
+            .then(data => changeSessionKey(data.key));
     }, [sessionKey]);
 
     const sumStrava = useMemo(() => {
         let res = 0;
-        for (let day in prices){
+        for (let day in prices) {
             prices[day].options.map((item, i) => {
-                if(strava[day + '.' + i]){
+                if (strava[day + '.' + i]) {
                     res += prices[day].options[i].price;
                 }
             });
         }
         return res;
-    }, [strava]);
+    }, [strava, program]);
 
     const sumProgram = useMemo(() => {
         let res = 0;
-        for (let day in prices){
-            if (program[day]){
-                res+=prices[day].price;
+        for (let day in prices) {
+            if (program[day]) {
+                res += prices[day].price;
             }
         }
         return res;
@@ -118,8 +120,10 @@ const FormContextProvider = ({ children }) => {
 
     return (
         <FormContext.Provider value={{
-            formState,
-            setFormState,
+            loading,
+            setLoading,
+            dataCorrect,
+            setDataCorrect,
             formPrices,
             credentials,
             setCredentials,
