@@ -8,7 +8,7 @@ export const FormContext = createContext({
     loading: 0,
     setLoading: () => { },
     dataCorrect: false,
-    setIsCorrect: () => { },
+    setDataCorrect: () => { },
     formPrices: {},
     credentials: {},
     setCredentials: () => { },

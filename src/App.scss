@@ -1,14 +1,51 @@
+@keyframes infinite-rotate {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  0% {opacity:0;}
+  100% {opacity:1;}
+}
+
 section#prihlaska {
   .appform {
     overflow: hidden;
+    position: relative;
+    div.overlay {
+      display: block;
+      width: 100%;
+      height: 90%;
+      position: absolute;
+      // same as H3 height
+      top: 4.5em;
+      z-index: 42;
+      padding: 50% 0;
+      background-color: rgba(44, 44, 44, 0.6);
+      text-align: center;
+      animation: fadeIn linear .35s;
+      .loader-icon {
+        display: inline-block;
+        animation: infinite-rotate 0.5s infinite;
+        width: 4em;
+        height: 4em;
+      }
+    }
     h3 {
-      padding-top: 0;
-      margin-bottom: 10px;
+      height: 1.5em;
+      padding: 0.2em 1em !important; // remove important after joining with other styles!!!
       border-bottom: 2px solid gray;
     }
     h4 {
-      text-align: center;
       letter-spacing: 3px;
+      border: 2px solid gray;
+      border-width: 1px 0 1px 0;
+      text-align: center;
+      color: #62a196;
     }
     div.form-content {
       padding: 0.5em 0 10px;
@@ -123,10 +160,10 @@ section#prihlaska {
       padding: 10px;
       display: block;
       width: 100%;
-      p.sum{
+      p.sum {
         font-size: 120%;
         text-align: center;
-        margin: .4em 0 0;
+        margin: 0.4em 0 0;
       }
       button.submit {
         margin: 0 1.4em 0 0.6em;
@@ -134,7 +171,7 @@ section#prihlaska {
         border-radius: 4px;
         border: 2px solid gray;
         float: right;
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
         cursor: pointer;
         span {
           display: inline-block;
@@ -144,10 +181,10 @@ section#prihlaska {
           float: right;
           margin: 3.3% auto 0;
         }
-        &:hover{
+        &:hover {
           background-color: whitesmoke;
           color: gray;
-          margin:0 1em 0 1em;
+          margin: 0 1em 0 1em;
         }
       }
     }
