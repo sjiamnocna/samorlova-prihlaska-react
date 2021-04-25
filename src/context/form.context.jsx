@@ -7,8 +7,8 @@ import prices from '../sam_prices.json';
 export const FormContext = createContext({
     loading: 0,
     setLoading: () => { },
+    messages: [],
     dataCorrect: false,
-    setDataCorrect: () => { },
     formPrices: {},
     credentials: {},
     setCredentials: () => { },
@@ -24,13 +24,11 @@ export const FormContext = createContext({
 const FormContextProvider = ({ children }) => {
     // use initial key to get session key secure POST request to backend
     const [sessionKey, changeSessionKey] = useState('prihlaska-sam');
+    const [loading, setLoading] = useState(0);
+    const [messages, setMessages] = useState([]);
 
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState(prices);
-
-    const [dataCorrect, setDataCorrect] = useState(false);
-
-    const [loading, setLoading] = useState(0);
 
     const [credentials, setCredentialsHook] = useState({
         name: [],
@@ -41,41 +39,120 @@ const FormContextProvider = ({ children }) => {
         streetNo: [],
         postcode: [],
         town: [],
-        note: [],
+        // define default because of data check
+        note: [''],
         accomodation: [true],
         vegetarian: [false]
     });
 
-    const setCredentials = (tag, value) => {
-        let fieldDetails = checkDetails[tag],
-            error = 0;
-
-        if (fieldDetails === undefined) {
-            // not allowed field
-            return;
-        }
-
-        if (fieldDetails.regex && value.length > 1) {
-            error = !fieldDetails.regex.test(value);
-        }
-
-        setCredentialsHook({ ...credentials, [tag]: [value, error] });
-    };
     const [strava, setStrava] = useState({});
 
     const [program, setProgramHook] = useState({});
+    
+    const addMessage = (text) => {
+        let key = messages.length;
 
+        setMessages([
+            ...messages,
+            text
+        ]);
+
+        // return removing function
+        return () => {
+            setMessages( messages.filter((item, i) => i !== key ) );
+        };
+    };
+
+    /**
+     * Set credentials AND check values are correct
+     * @param string    tag     Name of the attribute to set
+     * @param mixed     value   Value to set. Will be autochecked by tag rules
+     */
+    const setCredentials = (tag, value) => {
+        let fieldDetails = checkDetails[tag],
+            error = 0,
+            regex = fieldDetails.regex ?? false,
+            minimalLength = fieldDetails.minimalLength ?? 0;
+
+        if (fieldDetails === undefined) {
+            // not allowed field
+            throw new 'Unknown field in form!!!';
+        }
+
+        // check minimal length
+        console.log(value, minimalLength);
+        error = value.length < minimalLength;
+        // if error, check nothing | if regex check is set, do it
+        error = !error && regex && !regex.test(value);
+
+        setCredentialsHook({ ...credentials, [tag]: [value, error] });
+    };
+
+    /**
+     * Add day to "cart" and also un/set food for that day
+     * @param int       Index of that day
+     * @param boolean   If item is active or not 
+     */
     const setProgram = (tag, value) => {
-
-
-        let newValues = strava;
-        formPrices[tag].options.map((item, i) => {
-            newValues[[tag + '.' + i]] = value;
-        });
-        setStrava(newValues);
-
+        let checkStravaColumn = strava;
+        for(let i in formPrices[tag].options){
+            checkStravaColumn[[tag + '.' + i]] = value;
+        }
+        // set all checkbox value in column
+        setStrava(checkStravaColumn);
+        // set program data
         setProgramHook({ ...program, [tag]: value });
     };
+
+    /**
+     * Calculate food price using memo to save some effort on difficult operation
+     * Program must stay as dependency
+     */
+    const sumStrava = useMemo(() => {
+        let res = 0;
+        for (let day in prices) {
+            prices[day].options.map((item, i) => {
+                if (strava[day + '.' + i]) {
+                    res += prices[day].options[i].price;
+                }
+            });
+        }
+        return res;
+    }, [strava, program]);
+
+    /**
+     * Calculating program price using memo
+     */
+    const sumProgram = useMemo(() => {
+        let res = 0;
+        for (let day in prices) {
+            if (program[day]) {
+                res += prices[day].price;
+            }
+        }
+        return res;
+    }, [program]);
+
+    /**
+     * Walk through data and check everything is OK
+     */
+    const dataCorrect = useMemo(() => {
+        for (let i in credentials){
+            // if any error occurs
+            let item = credentials[i] ?? false,
+                error = credentials[i][1] ?? false;
+            if (!item || item.length === 0 || error){
+                return false;
+            }
+        }
+        // evrythings fine
+        return true;
+    }, [credentials]);
+
+    /**
+     * Sum of all prices
+     */
+    const total = useMemo(() => sumStrava + sumProgram, [sumStrava, sumProgram]);
 
     useEffect(() => {
         // get session key with API key
@@ -94,36 +171,12 @@ const FormContextProvider = ({ children }) => {
             .then(data => changeSessionKey(data.key));
     }, [sessionKey]);
 
-    const sumStrava = useMemo(() => {
-        let res = 0;
-        for (let day in prices) {
-            prices[day].options.map((item, i) => {
-                if (strava[day + '.' + i]) {
-                    res += prices[day].options[i].price;
-                }
-            });
-        }
-        return res;
-    }, [strava, program]);
-
-    const sumProgram = useMemo(() => {
-        let res = 0;
-        for (let day in prices) {
-            if (program[day]) {
-                res += prices[day].price;
-            }
-        }
-        return res;
-    }, [program]);
-
-    const total = useMemo(() => sumStrava + sumProgram, [sumStrava, sumProgram]);
-
     return (
         <FormContext.Provider value={{
             loading,
             setLoading,
+            messages,
             dataCorrect,
-            setDataCorrect,
             formPrices,
             credentials,
             setCredentials,

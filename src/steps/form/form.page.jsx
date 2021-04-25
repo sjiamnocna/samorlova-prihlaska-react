@@ -8,9 +8,18 @@ import RegistrationItems from "../../components/registration-items/registration-
 import FormItem from "../../components/form-item/form-item.comp";
 
 const FormPage = () => {
-  const { credentials, setCredentials } = useContext(FormContext);
+  const { credentials, setCredentials, messages, dataCorrect } = useContext(FormContext);
   return (
     <div className="form-content">
+      <div className="message-pane">
+        {
+          messages.map(item => (
+            <div className="message">
+              {item}
+            </div>
+          ))
+        }
+      </div>
       <div className="form-group double">
         <FormItem>
           <FormInput
@@ -107,7 +116,9 @@ const FormPage = () => {
           />
         </FormItem>
       </div>
-      <RegistrationItems />
+      {
+        dataCorrect ? <RegistrationItems /> : null
+      }
     </div>
   );
 };
