@@ -31,14 +31,14 @@ const FormContextProvider = ({ children }) => {
     const [formPrices, setFormPrices] = useState(prices);
 
     const [credentials, setCredentialsHook] = useState({
-        name: [],
-        sname: [],
-        mail: [],
-        byear: [],
-        street: [],
-        streetNo: [],
-        postcode: [],
-        town: [],
+        name: ['Aaaa'],
+        sname: ['Bbbbb'],
+        mail: ['Cccc'],
+        byear: [1234],
+        street: ['Lalalal'],
+        streetNo: ['1234'],
+        postcode: ['12355'],
+        town: ['Dsdfasd'],
         // define default because of data check
         note: [''],
         accomodation: [true],
@@ -71,6 +71,7 @@ const FormContextProvider = ({ children }) => {
     const setCredentials = (tag, value) => {
         let fieldDetails = checkDetails[tag],
             error = 0,
+            removeErrorMessage = credentials[tag][2] ?? false,
             regex = fieldDetails.regex ?? false,
             minimalLength = fieldDetails.minimalLength ?? 0;
 
@@ -80,12 +81,21 @@ const FormContextProvider = ({ children }) => {
         }
 
         // check minimal length
-        console.log(value, minimalLength);
         error = value.length < minimalLength;
         // if error, check nothing | if regex check is set, do it
-        error = !error && regex && !regex.test(value);
+        error = error || regex && !regex.test(value);
+        
+        if(error){
+            if(!removeErrorMessage){
+                removeErrorMessage = addMessage(fieldDetails.errorMessage);
+            }
+        } else {
+            if(removeErrorMessage){
+                removeErrorMessage = removeErrorMessage();
+            }
+        }
 
-        setCredentialsHook({ ...credentials, [tag]: [value, error] });
+        setCredentialsHook({ ...credentials, [tag]: [value, error, removeErrorMessage] });
     };
 
     /**
@@ -111,11 +121,11 @@ const FormContextProvider = ({ children }) => {
     const sumStrava = useMemo(() => {
         let res = 0;
         for (let day in prices) {
-            prices[day].options.map((item, i) => {
-                if (strava[day + '.' + i]) {
-                    res += prices[day].options[i].price;
+            for (let jidlo in prices[day].options){
+                if (strava[day + '.' + jidlo]){
+                    res += prices[day].options[jidlo].price;
                 }
-            });
+            }
         }
         return res;
     }, [strava, program]);

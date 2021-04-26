@@ -31,7 +31,7 @@ const checkDetails = {
     },
     postcode: {
         regex: /^([\d]{3} ?[\d]{2,3})$/,
-        errorMessage: "Poštovní směrovací číslo ve tvaru <nobr>123 45(6)</nobr>",
+        errorMessage: "Poštovní směrovací číslo ve tvaru 123 45(6)",
         minimalLength: 5
     },
     town: {

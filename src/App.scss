@@ -18,9 +18,9 @@
 
 section#prihlaska {
   form.appform {
+    margin: 0;
     overflow: hidden;
-    // remove min-height: 32em;
-    min-height: auto !important; // remove after joining with other styles!!!
+    padding-bottom: 3em !important; // remove other padding
     div.overlay {
       display: block;
       width: 100%;
@@ -59,7 +59,7 @@ section#prihlaska {
         margin: 0.5em 5px;
         .form-item {
           .input-container {
-            border: solid transparent;
+            border: solid #dbf2f5;
             border-width: 0 0 2px;
             &.error {
               border-color: red;
@@ -157,8 +157,22 @@ section#prihlaska {
           }
         }
       }
+      div.message-pane{
+        display: block;
+        margin: .5em;
+        .message{
+          display: block;
+          font-size: .95em;
+          font-style: italic;
+          &.error{
+            color: red;
+          }
+        }
+      }
     }
     .control-bar {
+      position: absolute;
+      bottom: 0;
       clear: both;
       overflow: hidden;
       background: wheat;

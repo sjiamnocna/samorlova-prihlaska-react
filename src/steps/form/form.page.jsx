@@ -6,20 +6,12 @@ import FormInput from "../../components/form-input/form-input.comp";
 import Checkbox from "../../components/form-checkbox/form-checkbox.comp";
 import RegistrationItems from "../../components/registration-items/registration-items";
 import FormItem from "../../components/form-item/form-item.comp";
+import ErrorMessages from "../../components/error-pane/error-pane.comp";
 
 const FormPage = () => {
   const { credentials, setCredentials, messages, dataCorrect } = useContext(FormContext);
   return (
     <div className="form-content">
-      <div className="message-pane">
-        {
-          messages.map(item => (
-            <div className="message">
-              {item}
-            </div>
-          ))
-        }
-      </div>
       <div className="form-group double">
         <FormItem>
           <FormInput
@@ -117,7 +109,7 @@ const FormPage = () => {
         </FormItem>
       </div>
       {
-        dataCorrect ? <RegistrationItems /> : null
+        dataCorrect ? <RegistrationItems /> : <ErrorMessages messages={messages} />
       }
     </div>
   );
