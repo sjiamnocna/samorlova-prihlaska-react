@@ -27,7 +27,7 @@ const checkDetails = {
     streetNo: {
         regex: /^([\d/]+)$/,
         errorMessage: "Zadávejte pouze čísla, číslo orientační můžete oddělit lomítkem /",
-        minimalLength: 2
+        minimalLength: 1
     },
     postcode: {
         regex: /^([\d]{3} ?[\d]{2,3})$/,

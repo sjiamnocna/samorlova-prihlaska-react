@@ -3,6 +3,7 @@ import React, { useState, useMemo, useEffect, createContext } from 'react'
 import checkDetails from './form.check';
 
 import prices from '../sam_prices.json';
+import fetchData from '../ajax/ajax.func';
 
 export const FormContext = createContext({
     loading: 0,
@@ -23,22 +24,22 @@ export const FormContext = createContext({
 
 const FormContextProvider = ({ children }) => {
     // use initial key to get session key secure POST request to backend
-    const [sessionKey, changeSessionKey] = useState('prihlaska-sam');
+    const [sessionKey, changeSessionKey] = useState('sampan');
     const [loading, setLoading] = useState(0);
     const [messages, setMessages] = useState([]);
 
     // want to use AJAX later
-    const [formPrices, setFormPrices] = useState(prices);
+    const [formPrices, setFormPrices] = useState({});
 
     const [credentials, setCredentialsHook] = useState({
-        name: ['Aaaa'],
-        sname: ['Bbbbb'],
-        mail: ['Cccc'],
-        byear: [1234],
-        street: ['Lalalal'],
-        streetNo: ['1234'],
-        postcode: ['12355'],
-        town: ['Dsdfasd'],
+        name: ['', 1],
+        sname: ['', 1],
+        mail: ['', 1],
+        byear: [2000, 1],
+        street: ['', 1],
+        streetNo: ['', 1],
+        postcode: ['', 1],
+        town: ['', 1],
         // define default because of data check
         note: [''],
         accomodation: [true],
@@ -77,13 +78,13 @@ const FormContextProvider = ({ children }) => {
 
         if (fieldDetails === undefined) {
             // not allowed field
-            throw new 'Unknown field in form!!!';
+            throw 'Unknown field in form!!!';
         }
 
         // check minimal length
         error = value.length < minimalLength;
         // if error, check nothing | if regex check is set, do it
-        error = error || regex && !regex.test(value);
+        error = error || (regex && !regex.test(value));
         
         if(error){
             if(!removeErrorMessage){
@@ -150,8 +151,8 @@ const FormContextProvider = ({ children }) => {
         for (let i in credentials){
             // if any error occurs
             let item = credentials[i] ?? false,
-                error = credentials[i][1] ?? false;
-            if (!item || item.length === 0 || error){
+                error = item[1] ?? false;
+            if (error || !(item && item.length)){
                 return false;
             }
         }
@@ -165,21 +166,33 @@ const FormContextProvider = ({ children }) => {
     const total = useMemo(() => sumStrava + sumProgram, [sumStrava, sumProgram]);
 
     useEffect(() => {
-        // get session key with API key
-        fetch('http://localhost:8000/prihlaska.php', {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify({
-                action: 'getSessionKey',
-                key: sessionKey
+        // get session key with access key
+        fetchData({
+            'action': 'fetch_session',
+            'access-key': sessionKey
+        })
+        .then((res) => res.json())
+        .then((data) => changeSessionKey(data.key))
+        .catch(e => console.log(e));
+    }, []);
+
+    useEffect(() => console.log('prices', formPrices), [formPrices]);
+
+    useEffect(() => console.log('session', sessionKey), [sessionKey]);
+
+    useEffect(() => {
+        console.log('dataCorrect:', dataCorrect, formPrices.length);
+        if (dataCorrect && !formPrices.length){
+            console.log('fetching');
+            fetchData({
+                'action': 'fetch_prices',
+                'session-key': sessionKey
             })
-        }).then(data => data.json())
-            .then(data => changeSessionKey(data.key));
-    }, [sessionKey]);
+            .then((res) => res.json())
+            .then((res) => setFormPrices(res))
+            .catch(e => console.log(e));
+        }
+    }, [dataCorrect]);
 
     return (
         <FormContext.Provider value={{

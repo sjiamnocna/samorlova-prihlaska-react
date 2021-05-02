@@ -4,17 +4,25 @@ const FormInput = ({ textarea, handleChange, label, error, ...otherProps }) => {
   const [focused, setFocused] = useState(false);
   // array of values is empty
   otherProps.value = otherProps.value ?? '';
+
+  const inputProps = {
+    onChange: handleChange,
+    onFocus: () => setFocused(true),
+    onBlur: () => setFocused(false),
+    ...otherProps
+  };
+
   return (
     <div className={`input-container${error ? " error": ""}`}>
-      <label className={focused || otherProps.value.length ? 'shrink' : null}>
+      <label className={focused || otherProps.value ? 'shrink' : null}>
         <span className="label-text">
           {label}
         </span>
         {
           textarea ?
-            <textarea onChange={handleChange} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} {...otherProps} />
+            <textarea {...inputProps}/>
             :
-            <input onChange={handleChange} onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} {...otherProps} />
+            <input {...inputProps}/>
         }
       </label>
     </div>
