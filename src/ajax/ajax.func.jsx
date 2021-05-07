@@ -1,5 +1,6 @@
-const fetchData = async (data) =>
-  fetch("/prihlaska", {
+const fetchData = async (data) => {
+  console.log('postdata: ', data);
+  return fetch("/", {
     crossDomain: true,
     method: "POST",
     headers: {
@@ -9,5 +10,6 @@ const fetchData = async (data) =>
     },
     body: JSON.stringify(data),
   });
+}
 
 export default fetchData;

@@ -8,6 +8,8 @@ import fetchData from '../ajax/ajax.func';
 export const FormContext = createContext({
     loading: 0,
     setLoading: () => { },
+    submitted: 0,
+    submit: () => {},
     messages: [],
     dataCorrect: false,
     formPrices: {},
@@ -19,27 +21,35 @@ export const FormContext = createContext({
     setStrava: () => { },
     sumStrava: 0,
     sumProgram: 0,
-    total: 0
+    total: 0,
+    responseData: {}
 });
 
 const FormContextProvider = ({ children }) => {
     // use initial key to get session key secure POST request to backend
     const [sessionKey, changeSessionKey] = useState('sampan');
     const [loading, setLoading] = useState(0);
+    const [responseData, setResponseData] = useState({});
+    // submit form, submitted status
+    const [submitted, setSubmitted] = useState(0);
+    const submit = e => {
+        e.preventDefault();
+        setSubmitted(1);
+    };
     const [messages, setMessages] = useState([]);
 
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState({});
 
     const [credentials, setCredentialsHook] = useState({
-        name: ['', 1],
-        sname: ['', 1],
-        mail: ['', 1],
-        byear: [2000, 1],
-        street: ['', 1],
-        streetNo: ['', 1],
-        postcode: ['', 1],
-        town: ['', 1],
+        name: ['', 0],
+        sname: ['', 0],
+        mail: ['', 0],
+        byear: ['', 0],
+        street: ['', 0],
+        streetNo: ['', 0],
+        postcode: ['', 0],
+        town: ['', 0],
         // define default because of data check
         note: [''],
         accomodation: [true],
@@ -151,8 +161,13 @@ const FormContextProvider = ({ children }) => {
         for (let i in credentials){
             // if any error occurs
             let item = credentials[i] ?? false,
+                optionalCheck = checkDetails[i].optional,
                 error = item[1] ?? false;
-            if (error || !(item && item.length)){
+            if (optionalCheck){
+                // nothing to check
+                continue;
+            }
+            if (error || !(item && item[0].length > 0)){
                 return false;
             }
         }
@@ -176,10 +191,6 @@ const FormContextProvider = ({ children }) => {
         .catch(e => console.log(e));
     }, []);
 
-    useEffect(() => console.log('prices', formPrices), [formPrices]);
-
-    useEffect(() => console.log('session', sessionKey), [sessionKey]);
-
     useEffect(() => {
         console.log('dataCorrect:', dataCorrect, formPrices.length);
         if (dataCorrect && !formPrices.length){
@@ -194,10 +205,34 @@ const FormContextProvider = ({ children }) => {
         }
     }, [dataCorrect]);
 
+    useEffect(() => {
+        if (submitted){
+            setLoading(true);
+            fetchData({
+                'action': 'submit_form',
+                'session-key': sessionKey,
+                'user-data': credentials,
+                'strava': strava,
+                'program': program
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log('response: ', res);
+                setResponseData(res);
+                setLoading(0);
+            })
+            .catch(e => setResponseData({
+                error: e
+            }));
+        }
+    }, [submitted]);
+
     return (
         <FormContext.Provider value={{
             loading,
             setLoading,
+            submitted,
+            submit,
             messages,
             dataCorrect,
             formPrices,

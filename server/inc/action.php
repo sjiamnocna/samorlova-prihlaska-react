@@ -21,7 +21,7 @@ switch($postData['action']){
             ]));
         }
         die(json_encode($dataPrices));
-    case 'submit_app':
-
+    case 'submit_form':
+        die(json_encode($postData));
         break;
 }
