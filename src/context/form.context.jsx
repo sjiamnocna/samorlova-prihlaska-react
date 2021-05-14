@@ -5,6 +5,38 @@ import checkDetails from './form.check';
 import prices from '../sam_prices.json';
 import fetchData from '../ajax/ajax.func';
 
+const defCreds = {
+    name: ['', 0],
+    sname: ['', 0],
+    mail: ['', 0],
+    byear: ['', 0],
+    street: ['', 0],
+    streetNo: ['', 0],
+    postcode: ['', 0],
+    town: ['', 0],
+    // define default because of data check
+    note: [''],
+    accomodation: [true],
+    vegetarian: [false]
+};
+
+const defProgram = [0,1,2,3];
+
+const testCreds = {
+    name: ['Lol', 0],
+    sname: ['Alslsl', 0],
+    mail: ['ksksksldldl@slsls.sls', 0],
+    byear: ['1234', 0],
+    street: ['Slssls', 0],
+    streetNo: ['42', 0],
+    postcode: ['123 42', 0],
+    town: ['Abcd', 0],
+    // define default because of data check
+    note: [''],
+    accomodation: [true],
+    vegetarian: [false]
+}
+
 export const FormContext = createContext({
     loading: 0,
     setLoading: () => { },
@@ -41,20 +73,7 @@ const FormContextProvider = ({ children }) => {
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState({});
 
-    const [credentials, setCredentialsHook] = useState({
-        name: ['', 0],
-        sname: ['', 0],
-        mail: ['', 0],
-        byear: ['', 0],
-        street: ['', 0],
-        streetNo: ['', 0],
-        postcode: ['', 0],
-        town: ['', 0],
-        // define default because of data check
-        note: [''],
-        accomodation: [true],
-        vegetarian: [false]
-    });
+    const [credentials, setCredentialsHook] = useState(testCreds);
 
     const [strava, setStrava] = useState({});
 
@@ -191,10 +210,10 @@ const FormContextProvider = ({ children }) => {
         .catch(e => console.log(e));
     }, []);
 
+    useEffect(() => console.log(sessionKey), [sessionKey]);
+
     useEffect(() => {
-        console.log('dataCorrect:', dataCorrect, formPrices.length);
         if (dataCorrect && !formPrices.length){
-            console.log('fetching');
             fetchData({
                 'action': 'fetch_prices',
                 'session-key': sessionKey
@@ -220,6 +239,8 @@ const FormContextProvider = ({ children }) => {
                 console.log('response: ', res);
                 setResponseData(res);
                 setLoading(0);
+                // temp allow second submit !!!remove later
+                setSubmitted(0);
             })
             .catch(e => setResponseData({
                 error: e
