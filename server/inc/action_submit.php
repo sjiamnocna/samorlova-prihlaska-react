@@ -17,10 +17,11 @@ function console_log($data): void
 
 function json_response($data, string $type = 'ok'): void
 {
-    die(json_encode([
-        'type' => $type,
-        'data' => $data
-    ]));
+    die(json_encode(
+        [
+            'type' => $type
+        ] + $data
+    ));
 }
 
 $fieldsToCheck = [
@@ -74,26 +75,84 @@ $sum[0] = $sum[0] >= 480 ? 390 : $sum[0];
 $sum[1] = $sum[1] >= 400 ? 400 : $sum[1];
 $total = array_sum($sum);
 
-$paymentData = [
-    '@name' => $personalData['name'],
-    '@sname' => $personalData['sname'],
-    '@acc' => '19-3568510277/0100',
-    '@iban' => 'CZ8301000000193568510277',
-    '@cena' => 42,//number_format($databaseData['price'], 2),
-    '@splatnost' => "12. 8. 2020",
-    '@vs' => (new DateTime())->format('Y'),
-    '@msg' => implode(',', [ 'SAM', $personalData['sname'], $personalData['name'] ])
-];
-
-$QRString = str_replace(array_keys($paymentData), array_values($paymentData), 'SPD*1.0*ACC:@iban*AM:@price*CC:CZK*MSG:@msg*X-VS:@vs');
-
-$QRWriter = new PngWriter();
+/* $QRWriter = new PngWriter();
 $QRCode = QrCode::create($QRString)
     ->setSize(300)
     ->setMargin(10);
-$QRresult = $QRWriter->write($QRCode);
+$QRresult = $QRWriter->write($QRCode); */
 
-die(json_response([
-    'personal_data' => $personalData,
-    'qr' => $QRresult->getString(),
-]));
+$templateVars = [
+    'name' => $personalData['name'],
+    'sname' => $personalData['sname'],
+    'address' => implode(',', [$personalData['street'], $personalData['streetNo'], $personalData['town'], $personalData['postcode']]),
+    'vs' => $personalData['name'],
+    'name' => $personalData['name'],
+    'acc' => '19-3568510277/0100',
+    'iban' => 'CZ8301000000193568510277',
+    'total' => number_format($total, 2),
+    'splatnost' => "12. 8. 2021",
+    'vs' => 1234, // get from database YEAR + ID,
+    'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
+];
+
+$stm = $SERVICES['pdo']->prepare(
+    'INSERT INTO sam_prihlasky
+    (
+        `name`,
+        `sname`,
+        `byear`,
+        `email`,
+        `address`,
+        `accomodation`,
+        `vegetarian`,
+        `appdetail`,
+        `donation`,
+        `note`,
+        `price`
+    )
+    SELECT
+        ? AS `name`,
+        ? AS `sname`,
+        ? AS `byear`,
+        ? AS `email`,
+        ? AS `address`,
+        ? AS `accomodation`,
+        ? AS `vegetarian`,
+        ? AS `appdetail`,
+        ? AS `donation`,
+        ? AS `note`,
+        ? AS `price`'
+);
+$stm->execute( $d = [
+    $personalData['name'],
+    $personalData['sname'],
+    $personalData['byear'],
+    $personalData['mail'],
+    $templateVars['address'],
+    $personalData['accomodation'] ? 1 : 0,
+    $personalData['vegetarian'] ? 1 : 0,
+    implode(';', $orders),
+    0,
+    $personalData['note'],
+    $total,
+]);
+
+if (!$SERVICES['pdo']->lastInsertId()){
+    $response = [
+        'code' => 500,
+        'message' => 'Něco se nepovedlo při vkládání do databáze',
+    ];
+    // log error data
+    console_log($stm->errorInfo());
+    // respond
+    json_response($response, 'error');
+}
+
+$templateVars['vs'] = (new DateTime())->format('Y') . $SERVICES['pdo']->lastInsertId();
+
+$QRString = "SPD*1.0*ACC:{$templateVars['iban']}*AM:{$templateVars['total']}*CC:CZK*MSG:{$templateVars['msg']}*X-VS:{$templateVars['vs']}";
+
+json_response([
+    'qr' => $QRString,
+    'html' => $SERVICES['latte']->renderToString(ROOT_PATH . '/inc/src/templattes/success.latte', $templateVars)
+]);

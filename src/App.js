@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import FormPage from "./steps/form/form.page";
 import Controls from "./components/controls/controls.comp";
@@ -20,7 +20,7 @@ const App = () => {
         loading ? <Loader /> : null
       }
       {
-        responseData ?
+        responseData.type !== undefined  ?
         <ShowResponse responseData={responseData} />
         :
         <FormPage />

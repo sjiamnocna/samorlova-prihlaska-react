@@ -23,8 +23,8 @@ const defCreds = {
 const defProgram = [0,1,2,3];
 
 const testCreds = {
-    name: ['Lol', 0],
-    sname: ['Alslsl', 0],
+    name: ['Slslslsdfs', 0],
+    sname: ['Ksdfasdf', 0],
     mail: ['ksksksldldl@slsls.sls', 0],
     byear: ['1234', 0],
     street: ['Slssls', 0],
@@ -69,6 +69,8 @@ const FormContextProvider = ({ children }) => {
         setSubmitted(1);
     };
     const [messages, setMessages] = useState([]);
+
+    useEffect(() => console.log('hook:', responseData), [responseData]);
 
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState({});
@@ -210,8 +212,6 @@ const FormContextProvider = ({ children }) => {
         .catch(e => console.log(e));
     }, []);
 
-    useEffect(() => console.log(sessionKey), [sessionKey]);
-
     useEffect(() => {
         if (dataCorrect && !formPrices.length){
             fetchData({
@@ -236,14 +236,14 @@ const FormContextProvider = ({ children }) => {
             })
             .then(res => res.json())
             .then(res => {
-                console.log('response: ', res);
                 setResponseData(res);
                 setLoading(0);
                 // temp allow second submit !!!remove later
                 setSubmitted(0);
             })
             .catch(e => setResponseData({
-                error: e
+                type: 'error',
+                data: e
             }));
         }
     }, [submitted]);
@@ -265,7 +265,8 @@ const FormContextProvider = ({ children }) => {
             setStrava,
             sumProgram,
             sumStrava,
-            total
+            total,
+            responseData
         }}>
             {children}
         </FormContext.Provider>

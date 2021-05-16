@@ -14,11 +14,8 @@ if(!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH
 define('ROOT_PATH', __DIR__);
 define('ACCESS_KEY', 'sampan');
 
-include_once ROOT_PATH . '/vendor/autoload.php';
-require_once './inc/src/sessionManager.class.php';
+require_once './inc/services.php';
 
 $postData = json_decode(file_get_contents('php://input'), true);
-
-$SessionManager = new App\session();
 
 require_once './inc/action.php';

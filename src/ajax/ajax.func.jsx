@@ -1,5 +1,4 @@
 const fetchData = async (data) => {
-  console.log('postdata: ', data);
   return fetch("/", {
     crossDomain: true,
     method: "POST",

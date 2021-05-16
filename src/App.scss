@@ -170,6 +170,19 @@ section#prihlaska {
         }
       }
     }
+    div.response-body{
+      padding: 2em;
+      h4{
+        padding: 0;
+        font-weight: bold;
+        font-style: italic;
+        color:rgb(65, 65, 65);
+        border: none;
+      }
+      p{
+
+      }
+    }
     .control-bar {
       position: absolute;
       bottom: 0;

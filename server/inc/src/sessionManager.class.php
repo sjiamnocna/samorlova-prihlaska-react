@@ -32,7 +32,7 @@ class session
      */
     public function is_active(): bool
     {
-        return $this->sessionData['key'] !== null;
+        return isset($this->sessionData['key']);
     }
 
     /**
