@@ -8,72 +8,14 @@ if (!defined('ROOT_PATH')){
     exit;
 }
 
-function console_log($data): void
-{
-    $STDERR = fopen("php://stderr", "w");
-    fwrite($STDERR, "\n". var_export($data, true) ."\n-----------------");
-    fclose($STDERR);
-}
+require_once 'variables.php';
+require_once 'functions.php';
 
-function json_response($data, string $type = 'ok'): void
-{
-    die(json_encode(
-        [
-            'type' => $type
-        ] + $data
-    ));
-}
-
-$fieldsToCheck = [
-    'name',
-    'sname',
-    'mail',
-    'byear',
-    'street',
-    'streetNo',
-    'postcode',
-    'town',
-    'vegetarian',
-    'accomodation',
-    'note'
-];
-
-$personalData = [];
-
-foreach($fieldsToCheck as $field){
-    $personalData[$field] = $postData['user-data'][$field][0] ?? false;
-}
-
+$personalData = process_personal_data($postData['user-data'], $fields);
 /**
- * @var int[] prices [program, strava]
+ * @var array [program, strava, celkem, dbString]
  */
-$sum = [0, 0];
-
-$strava = $postData['strava'];
-$program = $postData['program'];
-
-$orders = [];
-for($day = 0, $c = count($dataPrices); $day < $c; $day++){
-    $dayData = $dataPrices[$day];
-    $dayChecked = $postData['program'][$day] ?? false;
-    if ($dayChecked){
-        $orders[] = $day;
-        $sum[0] += intval($dayData['price']);
-    }
-    for($meal = 0, $mc = count($dayData['options']); $meal < $mc; $meal++){
-        $mealData = $dayData['options'][$meal];
-        $key = $day . '.' . $meal;
-        $mealChecked = $postData['strava'][$key] ?? false;
-        if ($mealChecked){
-            $orders[] = $key;
-            $sum[1] += intval($mealData['price']);
-        }
-    }
-}
-
-$sum[0] = $sum[0] >= 480 ? 390 : $sum[0];
-$sum[1] = $sum[1] >= 400 ? 400 : $sum[1];
-$total = array_sum($sum);
+$sum = calculate_prices();
 
 /* $QRWriter = new PngWriter();
 $QRCode = QrCode::create($QRString)
@@ -89,68 +31,53 @@ $templateVars = [
     'name' => $personalData['name'],
     'acc' => '19-3568510277/0100',
     'iban' => 'CZ8301000000193568510277',
-    'total' => number_format($total, 2),
+    'program' => number_format($sum[0], 2),
+    'strava' => number_format($sum[1], 2),
+    'total' => number_format($sum[2], 2),
     'splatnost' => "12. 8. 2021",
     'vs' => 1234, // get from database YEAR + ID,
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
+    'respondMail' => 'sam@samorlova.cz'
 ];
 
-$stm = $SERVICES['pdo']->prepare(
-    'INSERT INTO sam_prihlasky
-    (
-        `name`,
-        `sname`,
-        `byear`,
-        `email`,
-        `address`,
-        `accomodation`,
-        `vegetarian`,
-        `appdetail`,
-        `donation`,
-        `note`,
-        `price`
-    )
-    SELECT
-        ? AS `name`,
-        ? AS `sname`,
-        ? AS `byear`,
-        ? AS `email`,
-        ? AS `address`,
-        ? AS `accomodation`,
-        ? AS `vegetarian`,
-        ? AS `appdetail`,
-        ? AS `donation`,
-        ? AS `note`,
-        ? AS `price`'
-);
-$stm->execute( $d = [
-    $personalData['name'],
-    $personalData['sname'],
-    $personalData['byear'],
-    $personalData['mail'],
-    $templateVars['address'],
-    $personalData['accomodation'] ? 1 : 0,
-    $personalData['vegetarian'] ? 1 : 0,
-    implode(';', $orders),
-    0,
-    $personalData['note'],
-    $total,
+$lastInsert = dbInsert([
+    'name' => $personalData['name'],
+    'sname' => $personalData['sname'],
+    'byear' => $personalData['byear'],
+    'email' => $personalData['mail'],
+    'address' => $templateVars['address'],
+    'accomodation' => $personalData['accomodation'],
+    'vegetarian' => $personalData['vegetarian'],
+    'appdetail' => $sum[3],
+    'donation' => 0,
+    'note' => $personalData['note'],
+    'price' => $sum[2]
 ]);
 
-if (!$SERVICES['pdo']->lastInsertId()){
-    $response = [
-        'code' => 500,
+if ($lastInsert[1]){
+    // respond with error and quit
+    if ($lastInsert[1] === 1062){
+        // already exists
+        json_response([
+            'html' => $SERVICES['latte']->renderToString(ROOT_PATH . '/inc/src/templattes/alreadyExisting.latte', $templateVars)
+        ], 1062);
+    }
+    json_response([
         'message' => 'Něco se nepovedlo při vkládání do databáze',
-    ];
-    // log error data
-    console_log($stm->errorInfo());
-    // respond
-    json_response($response, 'error');
+    ], $lastInsert[1]);
 }
 
-$templateVars['vs'] = (new DateTime())->format('Y') . $SERVICES['pdo']->lastInsertId();
+$templateVars['vs'] = (new DateTime())->format('Y') . $lastInsert[0];
 
 $QRString = "SPD*1.0*ACC:{$templateVars['iban']}*AM:{$templateVars['total']}*CC:CZK*MSG:{$templateVars['msg']}*X-VS:{$templateVars['vs']}";
+
+$mail = new Nette\Mail\Message;
+$mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
+->addReplyTo('SAM Orlova <sam@samorlova.cz>')
+->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
+->setHtmlBody($SERVICES['latte']->renderToString(ROOT_PATH . '/inc/src/templattes/successMail.latte', $templateVars));
+
+$SERVICES['mailer']->send($mail);
 
 json_response([
     'qr' => $QRString,

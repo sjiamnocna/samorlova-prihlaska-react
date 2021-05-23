@@ -5,7 +5,7 @@ import checkDetails from './form.check';
 import prices from '../sam_prices.json';
 import fetchData from '../ajax/ajax.func';
 
-const defCreds = {
+const defaultCredentials = {
     name: ['', 0],
     sname: ['', 0],
     mail: ['', 0],
@@ -20,7 +20,12 @@ const defCreds = {
     vegetarian: [false]
 };
 
-const defProgram = [0,1,2,3];
+const defProgram = {
+    0: 1,
+    1: 1,
+    2: 1,
+    3: 1
+};
 
 const testCreds = {
     name: ['Slslslsdfs', 0],
@@ -42,6 +47,7 @@ export const FormContext = createContext({
     setLoading: () => { },
     submitted: 0,
     submit: () => {},
+    reset: () => {},
     messages: [],
     dataCorrect: false,
     formPrices: {},
@@ -70,12 +76,26 @@ const FormContextProvider = ({ children }) => {
     };
     const [messages, setMessages] = useState([]);
 
-    useEffect(() => console.log('hook:', responseData), [responseData]);
+    useEffect(() => console.log('response:', responseData), [responseData]);
 
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState({});
 
     const [credentials, setCredentialsHook] = useState(testCreds);
+
+    useEffect(() => console.log('credentials:', credentials), [credentials]);
+
+    const reset = (hard) => {
+        // if hard reset, remove all values
+        console.log('cred:', hard, credentials);
+        setCredentialsHook(hard ? defaultCredentials : {
+            ...credentials,
+            name: ['', 0],
+            sname: ['', 0]
+        })
+        setLoading(0);
+        setResponseData({});
+    };
 
     const [strava, setStrava] = useState({});
 
@@ -254,6 +274,7 @@ const FormContextProvider = ({ children }) => {
             setLoading,
             submitted,
             submit,
+            reset,
             messages,
             dataCorrect,
             formPrices,

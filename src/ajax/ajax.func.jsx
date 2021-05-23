@@ -1,6 +1,5 @@
 const fetchData = async (data) => {
-  return fetch("/", {
-    crossDomain: true,
+  return fetch("/prihlaska/", {
     method: "POST",
     headers: {
       'Accept': 'application/json',

@@ -9,10 +9,10 @@
 
 @keyframes fadeIn {
   0% {
-    opacity:0;
+    opacity: 0;
   }
   100% {
-    opacity:1;
+    opacity: 1;
   }
 }
 
@@ -32,7 +32,7 @@ section#prihlaska {
       padding: 50% 0;
       background-color: rgba(44, 44, 44, 0.6);
       text-align: center;
-      animation: fadeIn linear .35s;
+      animation: fadeIn linear 0.35s;
       .loader-icon {
         display: inline-block;
         animation: infinite-rotate 0.5s infinite;
@@ -51,6 +51,7 @@ section#prihlaska {
       border-width: 1px 0 1px 0;
       text-align: center;
       color: #62a196;
+      padding: 0px 5px;
     }
     div.form-content {
       padding: 0.5em 0 10px;
@@ -157,30 +158,29 @@ section#prihlaska {
           }
         }
       }
-      div.message-pane{
+      div.message-pane {
         display: block;
-        margin: .5em;
-        .message{
+        margin: 0.5em;
+        .message {
           display: block;
-          font-size: .95em;
+          font-size: 0.95em;
           font-style: italic;
-          &.error{
+          &.error {
             color: red;
           }
         }
       }
     }
-    div.response-body{
+    div.response-body {
       padding: 2em;
-      h4{
+      h4 {
         padding: 0;
         font-weight: bold;
         font-style: italic;
-        color:rgb(65, 65, 65);
+        color: rgb(65, 65, 65);
         border: none;
       }
-      p{
-
+      p {
       }
     }
     .control-bar {
@@ -189,7 +189,7 @@ section#prihlaska {
       clear: both;
       overflow: hidden;
       background: wheat;
-      padding: 10px;
+      padding: 10px 0;
       display: block;
       width: 100%;
       border-top: 2px solid gray;
@@ -198,22 +198,38 @@ section#prihlaska {
         text-align: center;
         margin: 0.4em 0 0;
       }
-      button.submit {
-        margin: 0 1.4em 0 0.6em;
+      .button {
+        margin: 0 0.6em;
         font-size: 1.3em;
+        cursor: pointer;
         border-radius: 4px;
         border: 2px solid;
-        color: #ccc;
-        float: right;
+        color: gray;
         transition: all 0.2s ease-in-out;
-        background: whitesmoke;
-        &.ready{
-          color: gray;
-          cursor: pointer;
+        background: white;
+        &.disabled {
+          color: #ccc;
+          cursor: default;
+        }
+        &:not(.disabled) {
           &:hover {
-            background-color: white;
+            background-color: whitesmoke;
             color: gray;
-            margin: 0 1em 0 1em;
+            svg{
+              color: greenyellow;
+            }
+          }
+        }
+        &.left {
+          float: left;
+          svg {
+            float: left;
+          }
+        }
+        &.right {
+          float: right;
+          svg {
+            float: right;
           }
         }
         span {
@@ -223,6 +239,7 @@ section#prihlaska {
         svg {
           float: right;
           margin: 3.3% auto 0;
+          transition: color .3s ease-in-out;
         }
       }
     }

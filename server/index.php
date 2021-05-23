@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 // basic checks for request origin
 if(!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') ||
-    !(isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER'] === 'http://localhost:3000/')){
+    !(isset($_SERVER['HTTP_REFERER']) && strpos($_SERVER['HTTP_REFERER'], 'http://samorlova.cz/') === 0)){
     header('HTTP/1.0 403 Forbidden');
     exit;
 }
@@ -15,6 +15,7 @@ define('ROOT_PATH', __DIR__);
 define('ACCESS_KEY', 'sampan');
 
 require_once './inc/services.php';
+require_once './config.php';
 
 $postData = json_decode(file_get_contents('php://input'), true);
 

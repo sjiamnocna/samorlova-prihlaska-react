@@ -4,7 +4,7 @@ const ErrorMessages = ({ messages }) => {
   return (
     <div className="message-pane">
       {messages.map((item) => (
-        <div className="message error">{item}</div>
+        <div className="message error" key={item}>{item}</div>
       ))}
     </div>
   );

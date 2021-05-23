@@ -5,6 +5,7 @@ require_once './inc/src/sessionManager.class.php';
 
 $SERVICES = [
     'sessionManager' => new App\session(),
-    'pdo' => new PDO('mysql:host=localhost;port=3306;dbname=samorlova', 'root', '12345'),
+    'pdo' => new PDO('mysql:host='.DB_HOST.';port=3306;dbname='.DB_NAME.'', DB_USER, DB_PASSWORD),
     'latte' => new Latte\Engine(),
+    'mailer' => new Nette\Mail\SendmailMailer
 ];
