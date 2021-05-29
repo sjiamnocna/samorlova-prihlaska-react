@@ -5,8 +5,6 @@ if (!defined('ROOT_PATH')){
     exit;
 }
 
-$dataPrices = json_decode(file_get_contents('../src/sam_prices.json'), true);
-
 switch($postData['action']){
     case 'fetch_session':
         // init session if it wasn't yet

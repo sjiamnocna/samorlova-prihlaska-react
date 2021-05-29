@@ -2,7 +2,6 @@ import React, { useState, useMemo, useEffect, createContext } from 'react'
 
 import checkDetails from './form.check';
 
-import prices from '../sam_prices.json';
 import fetchData from '../ajax/ajax.func';
 
 const defaultCredentials = {
@@ -19,28 +18,6 @@ const defaultCredentials = {
     accomodation: [true],
     vegetarian: [false]
 };
-
-const defProgram = {
-    0: 1,
-    1: 1,
-    2: 1,
-    3: 1
-};
-
-const testCreds = {
-    name: ['Slslslsdfs', 0],
-    sname: ['Ksdfasdf', 0],
-    mail: ['ksksksldldl@slsls.sls', 0],
-    byear: ['1234', 0],
-    street: ['Slssls', 0],
-    streetNo: ['42', 0],
-    postcode: ['123 42', 0],
-    town: ['Abcd', 0],
-    // define default because of data check
-    note: [''],
-    accomodation: [true],
-    vegetarian: [false]
-}
 
 export const FormContext = createContext({
     loading: 0,
@@ -76,18 +53,13 @@ const FormContextProvider = ({ children }) => {
     };
     const [messages, setMessages] = useState([]);
 
-    useEffect(() => console.log('response:', responseData), [responseData]);
-
     // want to use AJAX later
     const [formPrices, setFormPrices] = useState({});
 
-    const [credentials, setCredentialsHook] = useState(testCreds);
-
-    useEffect(() => console.log('credentials:', credentials), [credentials]);
+    const [credentials, setCredentialsHook] = useState(defaultCredentials);
 
     const reset = (hard) => {
         // if hard reset, remove all values
-        console.log('cred:', hard, credentials);
         setCredentialsHook(hard ? defaultCredentials : {
             ...credentials,
             name: ['', 0],
@@ -172,10 +144,10 @@ const FormContextProvider = ({ children }) => {
      */
     const sumStrava = useMemo(() => {
         let res = 0;
-        for (let day in prices) {
-            for (let jidlo in prices[day].options){
+        for (let day in formPrices) {
+            for (let jidlo in formPrices[day].options){
                 if (strava[day + '.' + jidlo]){
-                    res += prices[day].options[jidlo].price;
+                    res += formPrices[day].options[jidlo].price;
                 }
             }
         }
@@ -187,9 +159,9 @@ const FormContextProvider = ({ children }) => {
      */
     const sumProgram = useMemo(() => {
         let res = 0;
-        for (let day in prices) {
+        for (let day in formPrices) {
             if (program[day]) {
-                res += prices[day].price;
+                res += formPrices[day].price;
             }
         }
         return res;

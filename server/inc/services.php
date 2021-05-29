@@ -1,11 +1,10 @@
 <?php declare(strict_types = 1);
 
-include_once ROOT_PATH . '/vendor/autoload.php';
 require_once './inc/src/sessionManager.class.php';
 
 $SERVICES = [
     'sessionManager' => new App\session(),
-    'pdo' => new PDO('mysql:host='.DB_HOST.';port=3306;dbname='.DB_NAME.'', DB_USER, DB_PASSWORD),
+    'pdo' => new PDO('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME . ';', DB_USER, DB_PASSWORD),
     'latte' => new Latte\Engine(),
     'mailer' => new Nette\Mail\SendmailMailer
 ];
