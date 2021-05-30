@@ -56,14 +56,22 @@ $lastInsert = dbInsert([
 
 if ($lastInsert[1]){
     // respond with error and quit
-    if ($lastInsert[1] === 1062){
-        // already exists
-        json_response([
-            'html' => $SERVICES['latte']->renderToString(ROOT_PATH . '/inc/src/templattes/alreadyExisting.latte', $templateVars)
-        ], 1062);
+    $template = "page.error.{$lastInsert[1]}.latte";
+    if (!file_exists(TEMPLATE_DIR . $template)){
+        $template = 'page.error.php';
     }
+    
+    // add error code to template
+    $templateVars += [
+        'errorCode' => $lastInsert[1],
+    ];
+
+    // log to file or console
+    console_log($templateVars);
+
     json_response([
         'message' => 'Něco se nepovedlo při vkládání do databáze',
+        'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR, $templateVars),
     ], $lastInsert[1]);
 }
 
@@ -75,11 +83,10 @@ $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
-->setHtmlBody($SERVICES['latte']->renderToString(ROOT_PATH . '/inc/src/templattes/successMail.latte', $templateVars));
+->setHtmlBody($SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars));
 
 $SERVICES['mailer']->send($mail);
 
 json_response([
-    'qr' => $QRString,
-    'html' => $SERVICES['latte']->renderToString(ROOT_PATH . '/inc/src/templattes/success.latte', $templateVars)
+    'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR . 'success.latte', $templateVars)
 ]);
