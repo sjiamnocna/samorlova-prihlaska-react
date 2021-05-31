@@ -1,27 +1,60 @@
-<p>Přihláška byla úspěšně odeslána</p>
-<p>Berte prosím v potaz, že přihláška nabývá platnosti až po připsání částky {$total} na účet organizátora, a to <b>nejpozdějí do {$splatnost}</b></p>
-<p>Podrobné údaje o platbě můžete nalézt níže;</p>
-<div style="float:right;border:2px solid black;padding:.5em 1em;margin:2em 1em 0;">
-<p>Částku {$total}&nbsp;Kč uhraďte prosím na účet organizátora {$acc} s variabilním symbolem {$vs} do {$splatnost}.</p>
-<p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte jej na místě (cena může být vyšší)</p>
-</div>
-<table>
-    <tr>
-        <td>Účastnický poplatek</td>
-        <td>{$program}</td>
-    </tr>
-    <tr>
-        <td>Cena za jídlo</td>
-        <td>{$strava}</td>
-    </tr>
-    <tr style="font-weight: bold;">
-        <td>Celkem</td>
-        <td>{$total}</td>
-    </tr>
-</table>
+<head>
+    <title>Přihláška SAMpan 2021 - {$name} {$sname}</title>
+    <style>
+        .details{
+            display: flex;
+            overflow: hidden;
+            border: 2px solid black;
+            padding: .5em 1em;
+            margin: 2em 1em 0;
+        }
+        .details .prices{
+            flex: 1;
+        }
+        .details .payment{
+            flex: 2;
+        }
+        table tr.last-row{
+            font-weight: bold;
+        }
+        .footer{
+            border-top: 1px dashed lightcoral;
+            margin-top: 1em;
+            font-size: .8em;
+            font-style: italic;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <p>Přihláška byla úspěšně odeslána</p>
+    <p>Berte prosím v potaz, že přihláška nabývá platnosti až po připsání částky {$total} na účet organizátora, a to <b>nejpozdějí do {$splatnost}</b></p>
+    <p>Podrobné údaje o platbě můžete nalézt níže;</p>
+    <div class="details">
+        <div class="prices">
+            <table>
+                <tr>
+                    <td>Účastnický poplatek</td>
+                    <td>{$program}</td>
+                </tr>
+                <tr>
+                    <td>Cena za jídlo</td>
+                    <td>{$strava}</td>
+                </tr>
+                <tr style="font-weight: bold;">
+                    <td>Celkem</td>
+                    <td>{$total}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="payment">
+            <p>Částku <b>{$total}&nbsp;Kč</b> uhraďte prosím na účet organizátora <b>{$acc}</b> s variabilním symbolem <b>{$vs}</b> nejpozději do <b>{$splatnost}</b>.</p>
+            <p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte jej na místě (cena může být vyšší)</p>
+        </div>
+    </div>
 
-<hr>
-<div style="font-size: .8em;font-style: italic;">
-    <p>Toto je vyžádaná zpráva s údaji o přihlášce účastníka na <a href="http://samorlova.cz">Festival SAM v Orlové</a></p>
-    <p>Pokud se Vám na tomto sdělení neco nezdá, kontaktujte organizační tým.</p>
-</div>
+    <div class="footer">
+        <p>Toto je vyžádaná zpráva s údaji o přihlášce účastníka na <a href="http://samorlova.cz">Festival SAM v Orlové</a></p>
+        <p>Pokud se Vám na tomto sdělení neco nezdá, kontaktujte organizační tým, {$respondMail}</p>
+    </div>
+</body>

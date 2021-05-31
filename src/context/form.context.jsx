@@ -228,6 +228,7 @@ const FormContextProvider = ({ children }) => {
             })
             .then(res => res.json())
             .then(res => {
+                console.log(res);
                 setResponseData(res);
                 setLoading(0);
                 // temp allow second submit !!!remove later

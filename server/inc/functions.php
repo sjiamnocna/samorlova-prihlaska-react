@@ -88,27 +88,16 @@ function process_personal_data(array $data, array $fieldList): array
     return $personalData;
 }
 
+/**
+ * Insert data to sam_prihlasky
+ * 
+ * @var array Assoc array of table_name => data
+ * 
+ * @return array [lastInsertId, errorCode = 0, ?errorMessage]
+ */
 function dbInsert(array $data): array
 {
     global $SERVICES;
-
-    $stmt = $SERVICES['pdo']->prepare(
-        'SELECT
-            COUNT(*)
-        FROM
-            sam_prihlasky
-        WHERE `year` = YEAR(CURRENT_DATE()) AND `name` = ? AND `sname` = ?'
-    );
-    $stmt->execute([
-        $data['name'],
-        $data['sname']
-    ]);
-
-    if ($stmt->fetchColumn(0)){
-        // already existing entry
-        return [0, 1062, ''];
-    }
-
     /**
      * Prepare inserting data to DB
      */
@@ -117,15 +106,22 @@ function dbInsert(array $data): array
     $placeholders = str_repeat('?,', count($data) - 1) . '?';
     
     $stmt = $SERVICES['pdo']->prepare(
-        'INSERT INTO sam_prihlasky (' . $cols . ') VALUES (' . $placeholders . ')'
+        "INSERT INTO
+            sam_prihlasky
+        ({$cols})
+        VALUES
+        ({$placeholders})"
     );
 
-    $stmt->execute(array_values($data));
+    try{
+        // catch error and return it
+        $stmt->execute(array_values($data));
+    } catch(\PDOException $e){
+        [$eNum, $eCode, $eMessage] = $e->errorInfo ?? null;
+        return [0, $eCode, $eMessage];
+    }
 
     $lastInsertedId = intval($SERVICES['pdo']->lastInsertId());
 
-    // handle errors
-    [$eNum, $eCode, $eMessage] = $stmt->errorInfo() ?? null;
-
-    return [intval($lastInsertedId), intval($eCode), $eMessage];
+    return [$lastInsertedId, 0];
 }

@@ -54,11 +54,11 @@ $lastInsert = dbInsert([
     'price' => $sum[2]
 ]);
 
-if ($lastInsert[1]){
-    // respond with error and quit
+if ($lastInsert[0] === 0 || $lastInsert[1]){
+    // respond with error if last insert id is 0 or error code occured (both should work) and quit
     $template = "page.error.{$lastInsert[1]}.latte";
     if (!file_exists(TEMPLATE_DIR . $template)){
-        $template = 'page.error.php';
+        $template = 'page.error.latte';
     }
     
     // add error code to template
@@ -71,7 +71,8 @@ if ($lastInsert[1]){
 
     json_response([
         'message' => 'Něco se nepovedlo při vkládání do databáze',
-        'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR, $templateVars),
+        'dstring' => $lastInsert[2],
+        'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR . $template, $templateVars),
     ], $lastInsert[1]);
 }
 

@@ -8,3 +8,6 @@ $SERVICES = [
     'latte' => new Latte\Engine(),
     'mailer' => new Nette\Mail\SendmailMailer
 ];
+
+// make PDO throw exception on SQL error
+$SERVICES['pdo']->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

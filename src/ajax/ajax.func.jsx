@@ -1,4 +1,5 @@
 const fetchData = async (data) => {
+  console.log(data);
   return fetch("/prihlaska/", {
     method: "POST",
     headers: {
