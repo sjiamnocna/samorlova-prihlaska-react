@@ -17,12 +17,6 @@ $personalData = process_personal_data($postData['user-data'], $fields);
  */
 $sum = calculate_prices();
 
-/* $QRWriter = new PngWriter();
-$QRCode = QrCode::create($QRString)
-    ->setSize(300)
-    ->setMargin(10);
-$QRresult = $QRWriter->write($QRCode); */
-
 $templateVars = [
     'name' => $personalData['name'],
     'sname' => $personalData['sname'],
@@ -79,6 +73,14 @@ if ($lastInsert[0] === 0 || $lastInsert[1]){
 $templateVars['vs'] = (new DateTime())->format('Y') . $lastInsert[0];
 
 $QRString = "SPD*1.0*ACC:{$templateVars['iban']}*AM:{$templateVars['total']}*CC:CZK*MSG:{$templateVars['msg']}*X-VS:{$templateVars['vs']}";
+
+$QRWriter = new Endroid\QrCode\Writer\PngWriter;
+$QRCode = \Endroid\QrCode\QrCode::create($QRString)
+    ->setSize(300)
+    ->setMargin(10);
+$QRresult = $QRWriter->write($QRCode)->getString();
+// add to template
+$templateVars['qrCode'] = 'data:image/png;base64,' . base64_encode($QRresult);
 
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
