@@ -79,7 +79,7 @@ $QRCode = \Endroid\QrCode\QrCode::create($QRString)
     ->setMargin(10);
 $QRresult = $QRWriter->write($QRCode)->getString();
 // add to template
-$templateVars['qrCode'] = base64_encode($QRresult);
+$templateVars['qrCode'] = 'data:image/png;base64,' . base64_encode($QRresult);
 
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
