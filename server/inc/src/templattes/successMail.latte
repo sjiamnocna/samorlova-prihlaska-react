@@ -2,7 +2,7 @@
 <p>Berte prosím v potaz, že přihláška nabývá platnosti až po připsání částky {$total} na účet organizátora, a to <b>nejpozdějí do {$splatnost}</b></p>
 <p>Podrobné údaje o platbě můžete nalézt níže;</p>
 <div style="float:right;border:2px solid black;padding:.5em 1em;margin:2em 1em 0;">
-<p>Částku {$total}&nbsp;Kč uhraďte prosím na účet organizátora {$acc} s variabilním symbolem {$vs} do {$splatnost}.</p>
+<p>Částku {$total}&nbsp;Kč uhraďte prosím na účet organizátora {$acc} s variabilním symbolem {$vs} do {$splatnost}. Můžete využít platebního QR kódu ve zprávě.</p>
 <p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte jej na místě (cena může být vyšší)</p>
 </div>
 <table>
@@ -19,6 +19,7 @@
         <td>{$total}</td>
     </tr>
 </table>
+<img src="{$qrCode}" />
 
 <hr>
 <div style="font-size: .8em;font-style: italic;">
