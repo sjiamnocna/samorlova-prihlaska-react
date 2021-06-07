@@ -74,19 +74,28 @@ $templateVars['vs'] = (new DateTime())->format('Y') . $lastInsert[0];
 
 $QRString = "SPD*1.0*ACC:{$templateVars['iban']}*AM:{$templateVars['total']}*CC:CZK*MSG:{$templateVars['msg']}*X-VS:{$templateVars['vs']}";
 
+if (!is_dir(QRCACHE_PATH)){
+    mkdir(QRCACHE_PATH, 0755);
+}
+/**
+ * @var string New QR Code png image filename
+ */
+$QRfilename = (new DateTime())->format('Y') . $templateVars['vs'];
+
 $QRWriter = new Endroid\QrCode\Writer\PngWriter;
 $QRCode = \Endroid\QrCode\QrCode::create($QRString)
     ->setSize(300)
     ->setMargin(10);
-$QRresult = $QRWriter->write($QRCode)->getString();
-// add to template
-$templateVars['qrCode'] = 'data:image/png;base64,' . base64_encode($QRresult);
+$QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRWriter);
 
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
-->setHtmlBody($SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars));
+->setHtmlBody($SERVICES['latte']->renderToString(
+    ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),
+    QRCACHE_PATH
+);
 
 $SERVICES['mailer']->send($mail);
 
