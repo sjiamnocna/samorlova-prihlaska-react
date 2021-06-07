@@ -92,8 +92,7 @@ $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
-->setHtmlBody($SERVICES['latte']->renderToString(
-    ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),
+->setHtmlBody($SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),
     QRCACHE_PATH
 );
 
