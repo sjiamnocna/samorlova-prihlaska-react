@@ -8,8 +8,15 @@
             display: flex;
             overflow: hidden;
             border: 2px solid black;
-            padding: .5em 1em;
+            padding: .5em;
             margin: 2em 1em 0;
+        }
+        .details .QRCode{
+            padding: 0;
+        }
+        .details .QRCode img{
+            float:right;
+            margin:.5em;
         }
         .details .prices, .details .payment{
             padding: .5em 1em;
@@ -34,28 +41,32 @@
 </head>
 <body>
     <p>Přihláška byla úspěšně odeslána</p>
-    <p>Berte prosím v potaz, že přihláška nabývá platnosti až po připsání částky {$total} na účet organizátora, a to <b>nejpozdějí do {$splatnost}</b></p>
-    <p>Podrobné údaje o platbě můžete nalézt níže;</p>
+    <p>Berte prosím v&nbsp;potaz, že přihláška nabývá platnosti až po&nbsp;připsání částky {$total} na&nbsp;účet organizátora, a&nbsp;to <b>nejpozdějí do&nbsp;{$splatnost}</b></p>
+    <p>Podrobné údaje o&nbsp;platbě můžete nalézt níže;</p>
     <div class="details">
-        <div class="prices">
-            <table>
-                <tr>
-                    <td>Účastnický poplatek</td>
-                    <td>{$program}</td>
-                </tr>
-                <tr>
-                    <td>Cena za jídlo</td>
-                    <td>{$strava}</td>
-                </tr>
-                <tr style="font-weight: bold;">
-                    <td>Celkem</td>
-                    <td>{$total}</td>
-                </tr>
-            </table>
+        <div class="QRCode">
+            <img src="{$QRCode}"/>
         </div>
         <div class="payment">
-            <p>Částku <b>{$total}&nbsp;Kč</b> uhraďte prosím na účet organizátora <b>{$acc}</b> s variabilním symbolem <b>{$vs}</b> nejpozději do <b>{$splatnost}</b>.</p>
-            <p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte jej na místě (cena může být vyšší)</p>
+            <p>Částku <b>{$total}&nbsp;Kč</b> uhraďte prosím na&nbsp;účet organizátora <b>{$acc}</b> s&nbsp;variabilním symbolem <b>{$vs}</b> nejpozději do <b>{$splatnost}</b>.</p>
+            <p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte poplatek na místě u&nbsp;registračního stánku (cena může být vyšší)</p>
+            <p class="QRCode">Pokud to vaše bankovní aplikace umožňuje, můžete zaplatit také pomocí tohoto QR kódu.</p>
+            <div class="prices">
+                <table>
+                    <tr>
+                        <td>Účastnický poplatek</td>
+                        <td>{$program}</td>
+                    </tr>
+                    <tr>
+                        <td>Cena za jídlo</td>
+                        <td>{$strava}</td>
+                    </tr>
+                    <tr style="font-weight: bold;">
+                        <td>Celkem</td>
+                        <td>{$total}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 

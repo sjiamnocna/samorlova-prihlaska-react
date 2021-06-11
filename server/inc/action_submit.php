@@ -80,19 +80,22 @@ if (!is_dir(QRCACHE_PATH)){
 /**
  * @var string New QR Code png image filename
  */
-$QRfilename = (new DateTime())->format('Y') . $templateVars['vs'];
+$QRfilename = (new DateTime())->format('Y') . $templateVars['vs'] . '.png';
+
+$templateVars['QRCode'] = $QRfilename;
 
 $QRWriter = new Endroid\QrCode\Writer\PngWriter;
 $QRCode = \Endroid\QrCode\QrCode::create($QRString)
     ->setSize(300)
     ->setMargin(10);
-$QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRWriter);
+$QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRfilename);
 
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
-->setHtmlBody($SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),
+->setHtmlBody(
+    $SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),
     QRCACHE_PATH
 );
 
