@@ -5,7 +5,6 @@ import Controls from "./components/controls/controls.comp";
 
 import { BiLoaderAlt } from 'react-icons/bi';
 
-import "./App.scss";
 import { FormContext } from "./context/form.context";
 import ShowResponse from "./steps/response/response";
 
