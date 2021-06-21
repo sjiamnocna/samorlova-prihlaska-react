@@ -45,7 +45,7 @@ const INIT_KEY = 'sampan';
 const FormContextProvider = ({ children }) => {
     // use initial key to get session key secure POST request to backend
     const [sessionKey, changeSessionKey] = useState(INIT_KEY);
-    const [loading, setLoading] = useState(1);
+    const [loading, setLoading] = useState(0);
     const [responseData, setResponseData] = useState({});
     // submit form, submitted status
     const [submitted, setSubmitted] = useState(0);
@@ -196,17 +196,22 @@ const FormContextProvider = ({ children }) => {
     const total = useMemo(() => sumStrava + sumProgram, [sumStrava, sumProgram]);
 
     useEffect(() => {
+        setLoading(1);
         // get session key with access key
         fetchData({
             'action': 'fetch_session',
             'access-key': sessionKey
         })
         .then((res) => res.json())
-        .then((data) => changeSessionKey(data.key))
+        .then((data) => {
+            changeSessionKey(data.key);
+            setLoading(0);
+        })
         .catch(e => console.log(e));
     }, []);
 
     useEffect(() => {
+        setLoading(1);
         // get prices when session key obtained
         if (sessionKey !== INIT_KEY && !formPrices.length){
             fetchData({
@@ -214,7 +219,10 @@ const FormContextProvider = ({ children }) => {
                 'session-key': sessionKey
             })
             .then((res) => res.json())
-            .then((res) => setFormPrices(res))
+            .then((res) => {
+                setFormPrices(res);
+                setLoading(0);
+            })
             .catch(e => console.log(e));
         }
     }, [sessionKey]);
