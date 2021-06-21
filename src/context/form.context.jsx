@@ -40,10 +40,12 @@ export const FormContext = createContext({
     responseData: {}
 });
 
+const INIT_KEY = 'sampan';
+
 const FormContextProvider = ({ children }) => {
     // use initial key to get session key secure POST request to backend
-    const [sessionKey, changeSessionKey] = useState('sampan');
-    const [loading, setLoading] = useState(0);
+    const [sessionKey, changeSessionKey] = useState(INIT_KEY);
+    const [loading, setLoading] = useState(1);
     const [responseData, setResponseData] = useState({});
     // submit form, submitted status
     const [submitted, setSubmitted] = useState(0);
@@ -205,7 +207,8 @@ const FormContextProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        if (dataCorrect && !formPrices.length){
+        // get prices when session key obtained
+        if (sessionKey !== INIT_KEY && !formPrices.length){
             fetchData({
                 'action': 'fetch_prices',
                 'session-key': sessionKey
@@ -214,7 +217,7 @@ const FormContextProvider = ({ children }) => {
             .then((res) => setFormPrices(res))
             .catch(e => console.log(e));
         }
-    }, [dataCorrect]);
+    }, [sessionKey]);
 
     useEffect(() => {
         if (submitted){

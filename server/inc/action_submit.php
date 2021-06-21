@@ -84,8 +84,8 @@ $QRfilename = (new DateTime())->format('Y') . $templateVars['vs'] . '.png';
 
 $templateVars['QRCode'] = $QRfilename;
 
-$QRWriter = new Endroid\QrCode\Writer\PngWriter;
-$QRCode = \Endroid\QrCode\QrCode::create($QRString)
+$QRWriter = new PngWriter;
+$QRCode = QrCode::create($QRString)
     ->setSize(300)
     ->setMargin(10);
 $QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRfilename);
