@@ -108,8 +108,9 @@ const FormPage = () => {
           />
         </FormItem>
       </div>
+      <RegistrationItems />
       {
-        dataCorrect ? <RegistrationItems /> : <ErrorMessages messages={messages} />
+        !dataCorrect ? <ErrorMessages messages={messages} /> : null
       }
     </div>
   );

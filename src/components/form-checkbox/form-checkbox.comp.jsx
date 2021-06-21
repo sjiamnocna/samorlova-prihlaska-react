@@ -13,7 +13,7 @@ const Checkbox = ({ label, checked, handleChange, price, centered, className, ..
           {label}
         </span>
         {
-          price ? <p className="price">{price},-</p> : null
+          price ? <span className="price">{price},-</span> : null
         }
       </label>
     </div>
