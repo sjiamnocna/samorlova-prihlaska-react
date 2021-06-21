@@ -94,7 +94,7 @@ const FormPage = () => {
             label="Poznámka k přihlášce"
           />
         </FormItem>
-        <FormItem>
+        <FormItem className="checkboxed">
           <Checkbox
             checked={credentials.accomodation[0] ?? 0}
             onChange={(e) => setCredentials("accomodation", e.target.checked)}
