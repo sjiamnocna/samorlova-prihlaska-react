@@ -2,12 +2,15 @@
 
 require_once './bootstrap.php';
 
-if(!isset($_SERVER['X-Requested-With']) || $_SERVER['X-Requested-With'] !== ACCESS_KEY){
+// FETCH error
+$_POST = json_decode(file_get_contents('php://input'), true);
+
+if(!isset($_POST['access-token']) || $_POST['access-token'] !== ACCESS_KEY){
     header('HTTP/1.0 403 Forbidden');
-    exit;
+    throw new Exception('Cannot allow access');
 }
 
-$vs = $_REQUEST['vs'];
+$vs = $_POST['vs'];
 
 if (!is_numeric($vs)){
     throw new \Exception('VS must be numeric YYYYID');
@@ -32,9 +35,9 @@ $stm->execute([$year, $id]);
 
 $data = $stm->fetch(PDO::FETCH_ASSOC);
 
-if (isset($_REQUEST['spec'])){
+if (isset($_POST['spec'])){
     // if string is present
-    $data['allowed'] = strpos($data['appdetail'], $_REQUEST['spec']) > -1;
+    $data['allowed'] = strpos($data['appdetail'], $_POST['spec']) > -1;
 }
 
 print json_encode($data);
