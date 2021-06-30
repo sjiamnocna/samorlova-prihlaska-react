@@ -6,10 +6,6 @@ import { FaCheckCircle, FaPaintBrush, FaPlay, FaPlusSquare} from 'react-icons/fa
 
 const BeforeSubmit = ({formReady, submit, sumStrava, sumProgram, total}) => (
     <>
-    <button className={`button right` + (!formReady ? ' disabled' : '')} onClick={submit} disabled={!formReady}>
-        <span>Odeslat přihlášku</span>
-        <FaPlay />
-    </button>
     {
         total > 0 ? (
             <p className="sum">
@@ -17,6 +13,10 @@ const BeforeSubmit = ({formReady, submit, sumStrava, sumProgram, total}) => (
             </p>
         ) : null
     }
+    <button className={`button right` + (!formReady ? ' disabled' : '')} onClick={submit} disabled={!formReady}>
+        <span>Odeslat přihlášku</span>
+        <FaPlay />
+    </button>
     </>
 );
 
