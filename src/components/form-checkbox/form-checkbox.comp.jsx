@@ -1,6 +1,6 @@
 import React from "react";
 
-const Checkbox = ({ label, checked, handleChange, price, centered, className, ...otherProps }) => {
+const Checkbox = ({ label, checked, handleChange, price, centered, className, children, ...otherProps }) => {
   return (
     <div className={`checkbox-container${centered ? ' centered' : ''} ${className}`}>
       <label>
@@ -16,6 +16,7 @@ const Checkbox = ({ label, checked, handleChange, price, centered, className, ..
           price ? <span className="price">{price},-</span> : null
         }
       </label>
+      {children ?? null}
     </div>
   );
 };

@@ -4,12 +4,12 @@ import { FormContext } from "../../context/form.context";
 
 import { FaCheckCircle, FaPaintBrush, FaPlay, FaPlusSquare} from 'react-icons/fa';
 
-const BeforeSubmit = ({formReady, submit, sumStrava, sumProgram, total}) => (
+const BeforeSubmit = ({formReady, submit, sumStrava, sumProgram, donation, total}) => (
     <>
     {
         total > 0 ? (
             <p className="sum">
-                {sumStrava} + {sumProgram} = {total},- Kč
+                {sumStrava} + {sumProgram} + {donation > 0 ? donation : null} = {total},- Kč
             </p>
         ) : null
     }

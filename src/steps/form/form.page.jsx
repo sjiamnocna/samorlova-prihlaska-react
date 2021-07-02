@@ -9,7 +9,7 @@ import FormItem from "../../components/form-item/form-item.comp";
 import ErrorMessages from "../../components/error-pane/error-pane.comp";
 
 const FormPage = () => {
-  const { credentials, setCredentials, messages, dataCorrect } =
+  const { credentials, setCredentials, donation, setDonation, messages, dataCorrect } =
     useContext(FormContext);
   return (
     <div className="form-content">
@@ -111,12 +111,36 @@ const FormPage = () => {
                 onChange={(e) => setCredentials("vegetarian", e.target.checked)}
                 label="Jsem vegetarián"
               />
+
+              <Checkbox
+                className='donation'
+                checked={donation !== null}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    setDonation(50);
+                  } else {
+                    setDonation(null);
+                  }
+                }}
+                label="Chci přispět na organizaci samu"
+              >
+                {
+                  donation !== null ?
+                    <FormInput
+                      label='částkou'
+                      value={donation}
+                      type="number"
+                      onChange={e => setDonation(Number(e.target.value))}
+                      inline
+                    /> : null
+                }
+              </Checkbox>
             </FormItem>
           </div>
         </div>
       </div>
-      <RegistrationItems />
       {!dataCorrect ? <ErrorMessages messages={messages} /> : null}
+      <RegistrationItems />
     </div>
   );
 };

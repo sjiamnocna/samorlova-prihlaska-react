@@ -1,0 +1,14 @@
+.checkbox-container.donation{
+    .input-container.inline{
+        margin: .5em 2em;
+        label{
+            .label-text{
+                width: auto;
+            }
+            input{
+                display: inline-block;
+                width: 4em;
+            }
+        }
+    }
+}

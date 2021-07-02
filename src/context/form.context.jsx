@@ -60,6 +60,8 @@ const FormContextProvider = ({ children }) => {
 
     const [credentials, setCredentialsHook] = useState(defaultCredentials);
 
+    const [donation, setDonation] = useState(0);
+
     const reset = (hard) => {
         // if hard reset, remove all values
         setCredentialsHook(hard ? defaultCredentials : {
@@ -176,7 +178,8 @@ const FormContextProvider = ({ children }) => {
         for (let i in credentials){
             // if any error occurs
             let item = credentials[i] ?? false,
-                optionalCheck = checkDetails[i].optional,
+                checkParam = checkDetails[i] ?? false,
+                optionalCheck = checkParam.optional ?? true,
                 error = item[1] ?? false;
             if (optionalCheck){
                 // nothing to check
@@ -193,10 +196,10 @@ const FormContextProvider = ({ children }) => {
     /**
      * Sum of all prices
      */
-    const total = useMemo(() => sumStrava + sumProgram, [sumStrava, sumProgram]);
+    const total = useMemo(() => sumStrava + sumProgram + donation, [sumStrava, sumProgram, donation]);
 
     useEffect(() => {
-        setLoading(1);
+        setLoading(true);
         // get session key with access key
         fetchData({
             'action': 'fetch_session',
@@ -204,6 +207,7 @@ const FormContextProvider = ({ children }) => {
         })
         .then((res) => res.json())
         .then((data) => {
+            console.log(data);
             changeSessionKey(data.key);
             setLoading(0);
         })
@@ -211,7 +215,7 @@ const FormContextProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        setLoading(1);
+        setLoading(true);
         // get prices when session key obtained
         if (sessionKey !== INIT_KEY && !formPrices.length){
             fetchData({
@@ -234,6 +238,7 @@ const FormContextProvider = ({ children }) => {
                 'action': 'submit_form',
                 'session-key': sessionKey,
                 'user-data': credentials,
+                'donation': donation,
                 'strava': strava,
                 'program': program
             })
@@ -268,6 +273,8 @@ const FormContextProvider = ({ children }) => {
             setProgram,
             strava,
             setStrava,
+            donation,
+            setDonation,
             sumProgram,
             sumStrava,
             total,
