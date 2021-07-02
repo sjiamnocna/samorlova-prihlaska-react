@@ -60,7 +60,7 @@ const FormContextProvider = ({ children }) => {
 
     const [credentials, setCredentialsHook] = useState(defaultCredentials);
 
-    const [donation, setDonation] = useState(0);
+    const [donation, setDonation] = useState(50);
 
     const reset = (hard) => {
         // if hard reset, remove all values
