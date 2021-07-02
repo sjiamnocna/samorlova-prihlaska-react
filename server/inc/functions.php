@@ -20,7 +20,7 @@ function calculate_prices(): array
 {
     global $postData, $dataPrices;
 
-    $sum = [0, 0];
+    $sum = [0, 0, 0];
     $orders = [];
 
     for($day = 0, $c = count($dataPrices); $day < $c; $day++){
@@ -40,6 +40,8 @@ function calculate_prices(): array
             }
         }
     }
+
+    $sum[2] = intval($postData['donation']);
 
     $sum[] = array_sum($sum);
     $sum[] = implode(';', $orders);

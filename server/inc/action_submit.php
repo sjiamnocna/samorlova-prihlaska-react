@@ -27,15 +27,14 @@ $templateVars = [
     'iban' => 'CZ8301000000193568510277',
     'program' => number_format($sum[0], 2),
     'strava' => number_format($sum[1], 2),
-    'total' => number_format($sum[2], 2),
+    'donatiton' => number_format($sum[2], 2),
+    'donatiton' => number_format($sum[3], 2),
     'splatnost' => "12. 8. 2021",
-    'vs' => 1234, // get from database YEAR + ID,
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
     'respondMail' => 'sam@samorlova.cz'
 ];
 
 $lastInsert = dbInsert([
-    '' => $per
     'name' => $personalData['name'],
     'sname' => $personalData['sname'],
     'byear' => $personalData['byear'],
@@ -43,10 +42,10 @@ $lastInsert = dbInsert([
     'address' => $templateVars['address'],
     'accomodation' => $personalData['accomodation'],
     'vegetarian' => $personalData['vegetarian'],
-    'appdetail' => $sum[3],
+    'appdetail' => $sum[4],
     'donation' => 0,
     'note' => $personalData['note'],
-    'price' => $sum[2]
+    'price' => $sum[3]
 ]);
 
 if ($lastInsert[0] === 0 || $lastInsert[1]){
