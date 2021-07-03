@@ -85,6 +85,7 @@ const FormPage = () => {
               label="Město"
             />
           </FormItem>
+          {!dataCorrect ? <ErrorMessages messages={messages} /> : null}
         </div>
         <div className="form-group double">
           <FormItem>
@@ -122,7 +123,7 @@ const FormPage = () => {
                     setDonation(null);
                   }
                 }}
-                label="Chci přispět na organizaci samu"
+                label="Chci přispět na organizaci SAMu"
               >
                 {
                   donation !== null ?
@@ -139,7 +140,6 @@ const FormPage = () => {
           </div>
         </div>
       </div>
-      {!dataCorrect ? <ErrorMessages messages={messages} /> : null}
       <RegistrationItems />
     </div>
   );

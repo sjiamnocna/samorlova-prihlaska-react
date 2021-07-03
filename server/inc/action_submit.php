@@ -27,9 +27,8 @@ $templateVars = [
     'iban' => 'CZ8301000000193568510277',
     'program' => number_format($sum[0], 2),
     'strava' => number_format($sum[1], 2),
-    'donatiton' => number_format($sum[2], 2),
-    'donatiton' => number_format($sum[3], 2),
-    'splatnost' => "12. 8. 2021",
+    'donation' => number_format($sum[2], 2),
+    'splatnost' => (new DateTime(SPLATNOST))->format('j. n. Y'),
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
     'respondMail' => 'sam@samorlova.cz'
 ];
@@ -59,9 +58,6 @@ if ($lastInsert[0] === 0 || $lastInsert[1]){
     $templateVars += [
         'errorCode' => $lastInsert[1],
     ];
-
-    // log to file or console
-    console_log($templateVars);
 
     json_response([
         'message' => 'Něco se nepovedlo při vkládání do databáze',

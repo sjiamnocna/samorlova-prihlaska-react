@@ -16,7 +16,7 @@ const App = () => {
     <form className="appform">
       <h3>Registrační formulář</h3>
       {
-        loading ? <Loader /> : null
+        process.env.NODE_ENV !== 'development' && loading ? <Loader /> : null
       }
       {
         responseData.code !== undefined  ?
@@ -24,7 +24,10 @@ const App = () => {
         :
         <FormPage />
       }
-      <Controls />
+      {
+        responseData.controls !== 'none' ?
+        <Controls type={responseData.controls} /> : null
+      }
     </form>
   );
 };

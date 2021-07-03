@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const FormInput = ({ textarea, handleChange, label, error, inline, ...otherProps }) => {
-  const [focused, setFocused] = useState(false);
   // array of values is empty
   otherProps.value = otherProps.value ?? '';
 

@@ -51,7 +51,7 @@
             <p>Částku <b>{$total}&nbsp;Kč</b> uhraďte prosím na&nbsp;účet organizátora <b>{$acc}</b> s&nbsp;variabilním symbolem <b>{$vs}</b> nejpozději do <b>{$splatnost}</b>.</p>
             <p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte poplatek na místě u&nbsp;registračního stánku (cena může být vyšší)</p>
             <p class="QRCode">Pokud to vaše bankovní aplikace umožňuje, můžete zaplatit také pomocí tohoto QR kódu.</p>
-            <p style="font-size:110%; font-weight: bold;">QR Kód si uložte, bude sloužit k jednodušší identifikaci v registrační budce a bude smrtelně důležitá při vydávání jídla</p>
+            <p style="font-size:110%; font-weight: bold;">QR Kód si uložte, bude sloužit k jednodušší identifikaci v registrační budce a bude důležitá při vydávání jídla</p>
             <div class="prices">
                 <table>
                     <tr>
@@ -61,6 +61,10 @@
                     <tr>
                         <td>Cena za jídlo</td>
                         <td>{$strava}</td>
+                    </tr>
+                    <tr n:if="$donation > 0">
+                        <td>Příspěvek na organizaci akce</td>
+                        <td>{$donation}</td>
                     </tr>
                     <tr style="font-weight: bold;">
                         <td>Celkem</td>

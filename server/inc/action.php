@@ -5,6 +5,24 @@ if (!defined('ROOT_PATH')){
     exit;
 }
 
+require_once 'config.php';
+require_once 'variables.php';
+require_once 'functions.php';
+
+$now = new DateTime();
+$appOpen = new DateTime(APP_OPEN);
+$appClose = new DateTime(APP_CLOSE);
+
+if($now < $appOpen || $now >= $appClose){
+    json_response([
+        'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR . 'app_closed.latte', [
+            'appOpen' => $appOpen->format('j. n. Y'),
+            'appClose' => $appClose->format('j. n. Y'),
+        ]),
+        'controls' => 'none'
+    ], 1);
+}
+
 switch($postData['action']){
     case 'fetch_session':
         // init session if it wasn't yet

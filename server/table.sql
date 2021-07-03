@@ -15,11 +15,10 @@ CREATE TABLE IF NOT EXISTS `sam_prihlasky`(
     `note` VARCHAR(256) CHARACTER SET utf8 COLLATE utf8_czech_ci DEFAULT NULL,
     `price` float UNSIGNED NOT NULL,
     PRIMARY KEY (`ID`),
-    UNIQUE KEY `h` (`hash`),
     UNIQUE KEY `names` (`year`, `email`, `name`, `sname`),
     UNIQUE KEY `full` (`year`, `email`, `name`, `sname`),
     INDEX `appstate` (`year`, `status`),
     INDEX `mail` (`year`, `email`),
     INDEX `name` (`name`),
     INDEX `sname` (`sname`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE utf8_czech_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;

@@ -5,14 +5,14 @@ import checkDetails from './form.check';
 import fetchData from '../ajax/ajax.func';
 
 const defaultCredentials = {
-    name: ['', 0],
-    sname: ['', 0],
-    mail: ['', 0],
-    byear: ['', 0],
-    street: ['', 0],
-    streetNo: ['', 0],
-    postcode: ['', 0],
-    town: ['', 0],
+    name: ['', null],
+    sname: ['', null],
+    mail: ['', null],
+    byear: ['', null],
+    street: ['', null],
+    streetNo: ['', null],
+    postcode: ['', null],
+    town: ['', null],
     // define default because of data check
     note: [''],
     accomodation: [true],
@@ -60,7 +60,7 @@ const FormContextProvider = ({ children }) => {
 
     const [credentials, setCredentialsHook] = useState(defaultCredentials);
 
-    const [donation, setDonation] = useState(50);
+    const [donation, setDonation] = useState(null);
 
     const reset = (hard) => {
         // if hard reset, remove all values
@@ -105,7 +105,7 @@ const FormContextProvider = ({ children }) => {
 
         if (fieldDetails === undefined) {
             // not allowed field
-            throw 'Unknown field in form!!!';
+            throw Error('Unknown field in form!!!');
         }
 
         // check minimal length
@@ -156,7 +156,7 @@ const FormContextProvider = ({ children }) => {
             }
         }
         return res;
-    }, [strava, program]);
+    }, [strava, program, formPrices]);
 
     /**
      * Calculating program price using memo
@@ -169,7 +169,7 @@ const FormContextProvider = ({ children }) => {
             }
         }
         return res;
-    }, [program]);
+    }, [program, formPrices]);
 
     /**
      * Walk through data and check everything is OK
@@ -177,15 +177,15 @@ const FormContextProvider = ({ children }) => {
     const dataCorrect = useMemo(() => {
         for (let i in credentials){
             // if any error occurs
-            let item = credentials[i] ?? false,
+            let item = credentials[i],
                 checkParam = checkDetails[i] ?? false,
-                optionalCheck = checkParam.optional ?? true,
-                error = item[1] ?? false;
+                optionalCheck = checkParam.optional ?? false,
+                error = item[1] !== false;
             if (optionalCheck){
                 // nothing to check
                 continue;
             }
-            if (error || !(item && item[0].length > 0)){
+            if (error){
                 return false;
             }
         }
@@ -206,13 +206,14 @@ const FormContextProvider = ({ children }) => {
             'access-key': sessionKey
         })
         .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            changeSessionKey(data.key);
+        .then((res) => {
+            if (res.code){
+                setResponseData(res);
+            }
+            changeSessionKey(res.key);
             setLoading(0);
-        })
-        .catch(e => console.log(e));
-    }, []);
+        });
+    }, [sessionKey]);
 
     useEffect(() => {
         setLoading(true);
@@ -244,11 +245,8 @@ const FormContextProvider = ({ children }) => {
             })
             .then(res => res.json())
             .then(res => {
-                console.log(res);
                 setResponseData(res);
                 setLoading(0);
-                // temp allow second submit !!!remove later
-                setSubmitted(0);
             })
             .catch(e => setResponseData({
                 type: 'error',
