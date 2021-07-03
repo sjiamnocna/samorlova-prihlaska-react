@@ -28,6 +28,7 @@ $templateVars = [
     'program' => number_format($sum[0], 2),
     'strava' => number_format($sum[1], 2),
     'donation' => number_format($sum[2], 2),
+    'total' => number_format($sum[3], 2),
     'splatnost' => (new DateTime(SPLATNOST))->format('j. n. Y'),
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
     'respondMail' => 'sam@samorlova.cz'

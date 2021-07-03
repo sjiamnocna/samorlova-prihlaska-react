@@ -247,6 +247,7 @@ const FormContextProvider = ({ children }) => {
             .then(res => {
                 setResponseData(res);
                 setLoading(0);
+                setSubmitted(0);
             })
             .catch(e => setResponseData({
                 type: 'error',
