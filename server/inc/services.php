@@ -4,7 +4,7 @@ require_once './inc/src/sessionManager.class.php';
 
 $SERVICES = [
     'sessionManager' => new App\session(),
-    'pdo' => new PDO('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME . ';', DB_USER, DB_PASSWORD),
+    'pdo' => new PDO('mysql:host=' . DB_HOST . ';port=3306;dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASSWORD),
     'latte' => new Latte\Engine(),
     'mailer' => new Nette\Mail\SendmailMailer
 ];
