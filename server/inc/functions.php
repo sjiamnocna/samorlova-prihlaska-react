@@ -93,11 +93,12 @@ function process_personal_data(array $data, array $fieldList): array
 /**
  * Insert data to sam_prihlasky
  * 
- * @var array Assoc array of table_name => data
+ * @var array   Assoc array of table_name => data
+ * @var bool    Allow to change target table
  * 
  * @return array [lastInsertId, errorCode = 0, ?errorMessage]
  */
-function dbInsert(array $data): array
+function dbInsert(array $data, bool $debug = false): array
 {
     global $SERVICES;
     /**
@@ -106,13 +107,14 @@ function dbInsert(array $data): array
 
     $cols = '`' . implode('`,`', array_keys($data)) . '`';
     $placeholders = str_repeat('?,', count($data) - 1) . '?';
+    $targetTable = $debug ? 'test_sam_prihlasky' : 'sam_prihlasky';
     
     $stmt = $SERVICES['pdo']->prepare(
         "INSERT INTO
-            sam_prihlasky
+            {$targetTable}
         ({$cols})
         VALUES
-        ({$placeholders})"
+            ({$placeholders})"
     );
 
     try{

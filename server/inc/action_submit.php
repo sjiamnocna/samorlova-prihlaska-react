@@ -42,11 +42,11 @@ $lastInsert = dbInsert([
     'address' => $templateVars['address'],
     'accomodation' => $personalData['accomodation'],
     'vegetarian' => $personalData['vegetarian'],
-    'appdetail' => $sum[4],
-    'donation' => 0,
     'note' => $personalData['note'],
-    'price' => $sum[3]
-]);
+    'donation' => $sum[2],
+    'price' => $sum[3],
+    'appdetail' => $sum[4],
+], strtolower($personalData['note']) === 'test');
 
 if ($lastInsert[0] === 0 || $lastInsert[1]){
     // respond with error if last insert id is 0 or error code occured (both should work) and quit
