@@ -1,0 +1,95 @@
+[
+    {
+        "title": "Čtvrtek 10.8.",
+        "price": 0,
+        "options": [
+            {
+                "title": "Večeře",
+                "price": 60
+            },
+            {
+                "title": "Večer",
+                "price": 90
+            }
+        ]
+    },
+    {
+        "title": "Pátek 11.8.",
+        "price": 0,
+        "options": [
+            {
+                "title": "Snídaně",
+                "price": 35
+            },
+            {
+                "title": "Oběd",
+                "price": 75
+            },
+            {
+                "title": "Večeře",
+                "price": 60
+            },
+            {
+                "title": "Dopoledne",
+                "price": 40
+            },
+            {
+                "title": "Odpo",
+                "price": 50
+            },
+            {
+                "title": "Večer",
+                "price": 90
+            }
+        ]
+    },
+    {
+        "title": "Sobota 12.8.",
+        "price": 0,
+        "options": [
+            {
+                "title": "Snídaně",
+                "price": 35
+            },
+            {
+                "title": "Oběd",
+                "price": 75
+            },
+            {
+                "title": "Večeře",
+                "price": 60
+            },
+            {
+                "title": "Dopoledne",
+                "price": 40
+            },
+            {
+                "title": "Odpo",
+                "price": 50
+            },
+            {
+                "title": "Večer",
+                "price": 90
+            }
+        ]
+    },
+    {
+        "title": "Neděle 13.8.",
+        "price": 0,
+        "options": [
+            {
+                "title": "Snídaně",
+                "price": 35
+            },
+            {
+                "title": "Oběd",
+                "price": 75
+            },
+
+            {
+                "title": "Dopoledne",
+                "price": 40
+            }
+        ]
+    }
+]

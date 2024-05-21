@@ -31,10 +31,13 @@ $templateVars = [
     'total' => number_format($sum[3], 2, '.', ''),
     'splatnost' => (new DateTime(SPLATNOST))->format('j. n. Y'),
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
-    'respondMail' => 'sam@samorlova.cz'
+    'respondMail' => 'sam@samorlova.cz',
+    'year' => date("Y"),
+    'yearName' => YEAR_NAME
 ];
 
 $lastInsert = dbInsert([
+    'year' => date("Y"),
     'name' => $personalData['name'],
     'sname' => $personalData['sname'],
     'byear' => $personalData['byear'],
@@ -90,6 +93,7 @@ $QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRfilename);
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
+->addBcc('Kuchař <damilda@seznam.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
 ->setHtmlBody(
     $SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),

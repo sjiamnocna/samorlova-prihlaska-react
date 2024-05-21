@@ -1,6 +1,6 @@
 [
   {
-    "title": "Čtvrtek 12.8.",
+    "title": "Čtvrtek 10.8.",
     "food": [
       {
         "title": "Večeře",
@@ -15,38 +15,7 @@
     ]
   },
   {
-    "title": "Pátek 13.8.",
-    "food": [
-      {
-        "title": "Snídaně",
-        "price": 40
-      },
-      {
-        "title": "Oběd",
-        "price": 90
-      },
-      {
-        "title": "Večeře",
-        "price": 60
-      }
-    ],
-    "program": [
-      {
-        "title": "Dopolední",
-        "price": 40
-      },
-      {
-        "title": "Odpolední",
-        "price": 45
-      },
-      {
-        "title": "Večerní",
-        "price": 90
-      }
-    ]
-  },
-  {
-    "title": "Sobota 14.8.",
+    "title": "Pátek 11.8.",
     "food": [
       {
         "title": "Snídaně",
@@ -77,7 +46,38 @@
     ]
   },
   {
-    "title": "Neděle 15.8.",
+    "title": "Sobota 12.8.",
+    "food": [
+      {
+        "title": "Snídaně",
+        "price": 40
+      },
+      {
+        "title": "Oběd",
+        "price": 90
+      },
+      {
+        "title": "Večeře",
+        "price": 60
+      }
+    ],
+    "program": [
+      {
+        "title": "Dopolední",
+        "price": 40
+      },
+      {
+        "title": "Odpolední",
+        "price": 45
+      },
+      {
+        "title": "Večerní",
+        "price": 90
+      }
+    ]
+  },
+  {
+    "title": "Neděle 13.8.",
     "food": [
       {
         "title": "Snídaně",

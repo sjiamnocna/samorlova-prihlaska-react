@@ -17,10 +17,10 @@ const DayOptions = ({i, item}) => {
     const ns = {};
 
     // if key starts with i. then revrite value, else keep the original value for both strava and program
-    for (key in strava){
+    for (let key in strava){
       ns[key] = key.startsWith(`${i}.`) ? value : strava[key];
     }
-    for (key in program){
+    for (let key in program){
       np[key] = key.startsWith(`${i}.`) ? value : program[key];
     }
 
