@@ -43,9 +43,19 @@ const FormPage = () => {
           </FormItem>
           <FormItem>
             <FormInput
-              value={credentials.byear[0]}
-              error={credentials.byear[1]}
-              onChange={(e) => setCredentials("byear", e.target.value)}
+              type="date"
+              value={credentials.bdate[0]}
+              error={credentials.bdate[1]}
+              onChange={(e) => {
+                // calculate age from date and check the person is 18yrs old
+                const age = new Date().getFullYear() - Number(e.target.value);
+                if (age < 18) {
+                  // TODO: change action
+                  alert("Nemáte 18 let, bude potřeba zajistit si potvrzení od zákonného zástupce.");
+                }
+
+                setCredentials("bdate", e.target.value)
+              }}
               label="Rok narození"
             />
           </FormItem>

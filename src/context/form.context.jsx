@@ -8,7 +8,7 @@ const defaultCredentials = {
     name: ['', null],
     sname: ['', null],
     mail: ['', null],
-    byear: ['', null],
+    bdate: ['', null],
     street: ['', null],
     streetNo: ['', null],
     postcode: ['', null],
