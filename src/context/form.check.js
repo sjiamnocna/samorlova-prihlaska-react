@@ -14,10 +14,9 @@ const checkDetails = {
         errorMessage: "Zadejte prosím platnou e-mailovou adresu",
         minimalLength: 5
     },
-    byear:{
-        regex: /^([\d]{4}){1}$/,
-        errorMessage: "Rok narození, 4 čísla",
-        minimalLength: 4
+    bdate:{
+        errorMessage: "Datum narození ve formátu X.Y.ZZZZ",
+        minimalLength: 8
     },
     street: {
         regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ\d][a-záéíóúýčďěňřšťžů \d.-]{1,})+$/,
