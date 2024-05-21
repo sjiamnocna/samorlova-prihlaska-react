@@ -14,9 +14,8 @@ const defaultCredentials = {
     postcode: ['', null],
     town: ['', null],
     // define default because of data check
-    note: [''],
-    accomodation: [true],
-    vegetarian: [false]
+    foodrestrict: [''],
+    accomodation: [true]
 };
 
 export const FormContext = createContext({
@@ -75,7 +74,7 @@ const FormContextProvider = ({ children }) => {
 
     const [strava, setStrava] = useState({});
 
-    const [program, setProgramHook] = useState({});
+    const [program, setProgram] = useState({});
     
     const addMessage = (text) => {
         let key = messages.length;
@@ -131,16 +130,16 @@ const FormContextProvider = ({ children }) => {
      * @param int       Index of that day
      * @param boolean   If item is active or not 
      */
-    const setProgram = (tag, value) => {
+    /*const setProgram = (tag, value) => {
         let checkStravaColumn = strava;
-        for(let i in formPrices[tag].options){
+        for(let i in formPrices[tag].food){
             checkStravaColumn[[tag + '.' + i]] = value;
         }
         // set all checkbox value in column
         setStrava(checkStravaColumn);
         // set program data
         setProgramHook({ ...program, [tag]: value });
-    };
+    };*/
 
     /**
      * Calculate food price using memo to save some effort on difficult operation
@@ -149,9 +148,9 @@ const FormContextProvider = ({ children }) => {
     const sumStrava = useMemo(() => {
         let res = 0;
         for (let day in formPrices) {
-            for (let jidlo in formPrices[day].options){
+            for (let jidlo in formPrices[day].food){
                 if (strava[day + '.' + jidlo]){
-                    res += formPrices[day].options[jidlo].price;
+                    res += formPrices[day].food[jidlo].price;
                 }
             }
         }
@@ -164,8 +163,10 @@ const FormContextProvider = ({ children }) => {
     const sumProgram = useMemo(() => {
         let res = 0;
         for (let day in formPrices) {
-            if (program[day]) {
-                res += formPrices[day].price;
+            for (let part in formPrices[day].program){
+                if (program[day + '.' + part]){
+                    res += formPrices[day].program[part].price;
+                }
             }
         }
         return res;

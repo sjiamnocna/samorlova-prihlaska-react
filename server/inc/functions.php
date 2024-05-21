@@ -21,21 +21,26 @@ function calculate_prices(): array
     global $postData, $dataPrices;
 
     $sum = [0, 0, 0];
-    $orders = [];
+    $orders_program = [];
+    $orders_food = [];
 
     for($day = 0, $c = count($dataPrices); $day < $c; $day++){
         $dayData = $dataPrices[$day];
-        $dayChecked = $postData['program'][$day] ?? false;
-        if ($dayChecked){
-            $orders[] = $day;
-            $sum[0] += intval($dayData['price']);
+        for($program = 0, $pc = count($dayData['program']); $program < $pc; $program++){
+            $programData = $dayData['program'][$program];
+            $key = $day . '.' . $program;
+            $programChecked = $postData['program'][$key] ?? false;
+            if ($programChecked){
+                $orders_program[] = $key;
+                $sum[0] += intval($programData['price']);
+            }
         }
-        for($meal = 0, $mc = count($dayData['options']); $meal < $mc; $meal++){
-            $mealData = $dayData['options'][$meal];
+        for($meal = 0, $mc = count($dayData['food']); $meal < $mc; $meal++){
+            $mealData = $dayData['food'][$meal];
             $key = $day . '.' . $meal;
             $mealChecked = $postData['strava'][$key] ?? false;
             if ($mealChecked){
-                $orders[] = $key;
+                $orders_food[] = $key;
                 $sum[1] += intval($mealData['price']);
             }
         }
@@ -44,7 +49,8 @@ function calculate_prices(): array
     $sum[2] = intval($postData['donation']);
 
     $sum[] = array_sum($sum);
-    $sum[] = implode(';', $orders);
+    $sum[] = implode(';', $orders_program);
+    $sum[] = implode(';', $orders_food);
 
     // return sums for program/price/total and orders string for DB
     return $sum;
@@ -107,7 +113,7 @@ function dbInsert(array $data, bool $debug = false): array
 
     $cols = '`' . implode('`,`', array_keys($data)) . '`';
     $placeholders = str_repeat('?,', count($data) - 1) . '?';
-    $targetTable = $debug ? 'test_sam_prihlasky' : 'sam_prihlasky';
+    $targetTable = $debug ? 'test_sam_prihlasky_2' : 'sam_prihlasky_2';
     
     $stmt = $SERVICES['pdo']->prepare(
         "INSERT INTO

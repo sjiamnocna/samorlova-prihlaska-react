@@ -27,11 +27,8 @@ $fields = [
     'town' => [
         'required' => true,
     ],
-    'vegetarian' => [
-        'convertTo' => 'bool',
-    ],
     'accomodation' => [
         'convertTo' => 'bool',
     ],
-    'note',
+    'foodrestrict',
 ];

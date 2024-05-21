@@ -22,11 +22,11 @@ const BeforeSubmit = ({ formReady, submit, sumStrava, sumProgram, donation, tota
 
 const Navigation = ({ responseCode, reset }) => (
     <>
-        <button className='button left' onClick={e => reset()}>
+        <button className='button' onClick={e => reset()}>
             <span>{responseCode === 0 ? 'Další přihláška' : 'Upravit údaje'}</span>
             {responseCode === 0 ? <FaPlusSquare /> : <FaPaintBrush />}
         </button>
-        <button className='button right' onClick={e => reset(true)}>
+        <button className='button' onClick={e => reset(true)}>
             <span>Díky, nashledanou</span>
             <FaCheckCircle />
         </button>

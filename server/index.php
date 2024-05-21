@@ -2,7 +2,7 @@
 
 // basic checks for request origin
 if(!(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') ||
-    !(isset($_SERVER['HTTP_REFERER']) && strpos(str_replace('www.', '', $_SERVER['HTTP_REFERER']), 'http://samorlova.cz') === 0)){
+    !(isset($_SERVER['HTTP_REFERER']) && strpos(str_replace('www.', '', $_SERVER['HTTP_REFERER']), 'https://samorlova.cz') === 0)){
     header('HTTP/1.0 403 Forbidden');
     exit;
 }

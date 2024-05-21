@@ -16,16 +16,24 @@ const RegistrationItems = () => {
               <FormItem key={i}>
                 <h4>{item.title}</h4>
                 <div className="option-container">
-                  <Checkbox
-                    key={i}
-                    className="program"
-                    checked={program[i] ?? 0}
-                    onChange={(e) => setProgram(i, e.target.checked)}
-                    label="Program"
-                    price={item.price}
-                  />
+                  <div className="program">
+                    {item.program.map((subitem, j) => (
+                      <Checkbox
+                        key={i + "." + j}
+                        checked={program[[i + "." + j]] ?? 0}
+                        onChange={(e) =>
+                          setProgram({
+                            ...program,
+                            [i + "." + j]: e.target.checked,
+                          })
+                        }
+                        label={subitem.title}
+                        price={subitem.price}
+                      />
+                    ))}
+                  </div>
                   <div className="strava">
-                    {item.options.map((subitem, j) => (
+                    {item.food.map((subitem, j) => (
                       <Checkbox
                         key={i + "." + j}
                         checked={strava[[i + "." + j]] ?? 0}

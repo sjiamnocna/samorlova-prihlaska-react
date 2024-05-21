@@ -1,61 +1,97 @@
 [
   {
     "title": "Čtvrtek 12.8.",
-    "price": 80,
-    "options": [
+    "food": [
       {
         "title": "Večeře",
-        "price": 45
+        "price": 60
+      }
+    ],
+    "program": [
+      {
+        "title": "Večerní",
+        "price": 90
       }
     ]
   },
   {
     "title": "Pátek 13.8.",
-    "price": 145,
-    "options": [
+    "food": [
       {
         "title": "Snídaně",
-        "price": 30
+        "price": 40
       },
       {
         "title": "Oběd",
-        "price": 65
+        "price": 90
       },
       {
         "title": "Večeře",
+        "price": 60
+      }
+    ],
+    "program": [
+      {
+        "title": "Dopolední",
+        "price": 40
+      },
+      {
+        "title": "Odpolední",
         "price": 45
+      },
+      {
+        "title": "Večerní",
+        "price": 90
       }
     ]
   },
   {
     "title": "Sobota 14.8.",
-    "price": 145,
-    "options": [
+    "food": [
       {
         "title": "Snídaně",
-        "price": 30
+        "price": 40
       },
       {
         "title": "Oběd",
-        "price": 65
+        "price": 90
       },
       {
         "title": "Večeře",
+        "price": 60
+      }
+    ],
+    "program": [
+      {
+        "title": "Dopolední",
+        "price": 40
+      },
+      {
+        "title": "Odpolední",
         "price": 45
+      },
+      {
+        "title": "Večerní",
+        "price": 90
       }
     ]
   },
   {
     "title": "Neděle 15.8.",
-    "price": 30,
-    "options": [
+    "food": [
       {
         "title": "Snídaně",
-        "price": 30
+        "price": 40
       },
       {
         "title": "Oběd",
-        "price": 65
+        "price": 90
+      }
+    ],
+    "program": [
+      {
+        "title": "Dopolední",
+        "price": 40
       }
     ]
   }

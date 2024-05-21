@@ -1,13 +1,13 @@
 const checkDetails = {
     name: {
-        regex: /^([A-ZŠČŘŽÚŇŤÝ][a-zěščťřžýáíéúůň]+ ?)+$/,
+        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ][a-záéíóúýčďěňřšťžů-]+ ?)+$/,
         errorMessage: "Používejte české znaky, první písmeno jména by mělo být velké. Více jmen oddělte mezerou",
-        minimalLength: 3
+        minimalLength: 2
     },
     sname: {
-        regex: /^([A-ZŠČŘŽÚŇŤÝ][a-zěščřžýáíéúůň]+ ?)+$/,
+        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ][a-záéíóúýčďěňřšťžů-]+ ?)+$/,
         errorMessage: "Používejte české znaky, první písmeno jména by mělo být velké. Více jmen oddělte mezerou",
-        minimalLength: 3
+        minimalLength: 2
     },
     mail: {
         regex: /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,8})+$/,
@@ -20,12 +20,12 @@ const checkDetails = {
         minimalLength: 4
     },
     street: {
-        regex: /^([A-ZŠČŘŽÚŇŤÝ\d][a-zěščřžýáíéúůň \d.]{2,})+$/,
+        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ\d][a-záéíóúýčďěňřšťžů \d.-]{1,})+$/,
         errorMessage: "Používejte české znaky, první písmeno by mělo být velké.",
-        minimalLength: 3
+        minimalLength: 2
     },
     streetNo: {
-        regex: /^([\d/]+)$/,
+        regex: /^([\d/-]+)$/,
         errorMessage: "Zadávejte pouze čísla, číslo orientační můžete oddělit lomítkem /",
         minimalLength: 1
     },
@@ -35,17 +35,14 @@ const checkDetails = {
         minimalLength: 5
     },
     town: {
-        regex: /^([A-ZŠČŘŽÚŇŤÝ][a-zěščřžýáíéúůň\d-]+ ?)+$/,
+        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ][a-záéíóúýčďěňřšťžů\d-]+ ?)+$/,
         errorMessage: "Používejte prosím pouze znaky české abecedy, mezeru anebo pomlčku. Název by měl začít velkým písmenem",
         minimalLength: 2
-    },
-    vegetarian: {
-        optional: 1
     },
     accomodation: {
         optional: 1
     },
-    note: {
+    foodrestrict: {
         optional: 1
     }
 };

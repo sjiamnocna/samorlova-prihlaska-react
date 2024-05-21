@@ -24,10 +24,10 @@ $id = substr($vs, 4);
 */
 $stm = $SERVICES['pdo']->prepare(
     'SELECT
-        `vegetarian`,
-        `appdetail`
+        `foodrestrict`,
+        `appfood`
     FROM
-        `sam_prihlasky`
+        `sam_prihlasky_2`
     WHERE
         `year`=? AND id=?'
 );
@@ -37,7 +37,7 @@ $data = $stm->fetch(PDO::FETCH_ASSOC);
 
 if (isset($_POST['spec'])){
     // if string is present
-    $data['allowed'] = strpos($data['appdetail'], $_POST['spec']) > -1;
+    $data['allowed'] = strpos($data['appfood'], $_POST['spec']) > -1;
 }
 
 print json_encode($data);

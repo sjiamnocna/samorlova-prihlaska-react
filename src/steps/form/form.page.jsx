@@ -91,10 +91,10 @@ const FormPage = () => {
           <FormItem>
             <FormInput
               textarea
-              value={credentials.note[0]}
-              error={credentials.note[1]}
-              onChange={(e) => setCredentials("note", e.target.value)}
-              label="Poznámka k přihlášce"
+              value={credentials.foodrestrict[0]}
+              error={credentials.foodrestrict[1]}
+              onChange={(e) => setCredentials("foodrestrict", e.target.value)}
+              label="Omezení stravy"
             />
           </FormItem>
           <div className="optional">
@@ -104,13 +104,7 @@ const FormPage = () => {
                 onChange={(e) =>
                   setCredentials("accomodation", e.target.checked)
                 }
-                label="Potřebuju ubytování"
-              />
-
-              <Checkbox
-                checked={credentials.vegetarian[0] ?? 0}
-                onChange={(e) => setCredentials("vegetarian", e.target.checked)}
-                label="Jsem vegetarián"
+                label="Potřebuji ubytování"
               />
 
               <Checkbox
@@ -118,7 +112,7 @@ const FormPage = () => {
                 checked={donation !== null}
                 onChange={(e) => {
                   if (e.target.checked) {
-                    setDonation(50);
+                    setDonation(0);
                   } else {
                     setDonation(null);
                   }

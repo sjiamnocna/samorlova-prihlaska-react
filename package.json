@@ -1,7 +1,7 @@
 {
   "name": "sam-prihlaska",
   "version": "0.1.0",
-  "proxy": "http://www.samorlova.cz",
+  "proxy": "https://www.samorlova.cz",
   "homepage": "/prihlaska/build",
   "private": true,
   "dependencies": {

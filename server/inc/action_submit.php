@@ -28,7 +28,7 @@ $templateVars = [
     'program' => number_format($sum[0], 2),
     'strava' => number_format($sum[1], 2),
     'donation' => number_format($sum[2], 2),
-    'total' => number_format($sum[3], 2),
+    'total' => number_format($sum[3], 2, '.', ''),
     'splatnost' => (new DateTime(SPLATNOST))->format('j. n. Y'),
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
     'respondMail' => 'sam@samorlova.cz'
@@ -41,12 +41,12 @@ $lastInsert = dbInsert([
     'email' => $personalData['mail'],
     'address' => $templateVars['address'],
     'accomodation' => $personalData['accomodation'],
-    'vegetarian' => $personalData['vegetarian'],
-    'note' => $personalData['note'],
+    'foodrestrict' => $personalData['foodrestrict'],
     'donation' => $sum[2],
     'price' => $sum[3],
-    'appdetail' => $sum[4],
-], strtolower($personalData['note']) === 'test');
+    'appprogram' => $sum[4],
+    'appfood' => $sum[5],
+], strtolower($personalData['foodrestrict']) === 'test_data');
 
 if ($lastInsert[0] === 0 || $lastInsert[1]){
     // respond with error if last insert id is 0 or error code occured (both should work) and quit

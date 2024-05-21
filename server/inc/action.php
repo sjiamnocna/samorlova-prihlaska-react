@@ -12,8 +12,12 @@ require_once 'functions.php';
 $now = new DateTime();
 $appOpen = new DateTime(APP_OPEN);
 $appClose = new DateTime(APP_CLOSE);
+$appClose_php = new DateTime(APP_CLOSE);
+$appClose_php = $appClose_php->modify('+1 day');
 
-if($now < $appOpen || $now >= $appClose){
+// allow access to APP
+// including opening and closing day
+if(!($_SESSION['external_allow_register'] ?? false && $_SESSION['external_allow_register'] === PRIVATE_TOKEN) && ($now <= $appOpen || $now > $appClose_php)){
     json_response([
         'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR . 'app_closed.latte', [
             'appOpen' => $appOpen->format('j. n. Y'),
