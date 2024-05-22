@@ -43,7 +43,7 @@ const checkDetails = {
     },
     foodrestrict: {
         optional: 1
-    }
+    },
     donation: {
         regex: /^[0-9]\d*$/,
         errorMessage: "Pouze kladná čísla",
