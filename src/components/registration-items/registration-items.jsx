@@ -10,9 +10,18 @@ const RegistrationItems = () => {
     return null;
   }
 
+  const pricesList = [];
+
+  for (index in formPrices) {
+    const item = formPrices[index];
+    pricesList.push(
+      <DayOptions key={index} i={index} item={item} />
+    );
+  }
+
   return (
     <div className="form-group double details">
-      {formPrices.map((item, i) => (<DayOptions key={i} i={i} item={item} />))}
+      {pricesList}
     </div>
   );
 };
