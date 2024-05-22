@@ -10,9 +10,8 @@ $fields = [
     'mail' => [
         'required' => true,
     ],
-    'byear' => [
+    'bdate' => [
         'required' => true,
-        'convertTo' => 'integer',
     ],
     'street' => [
         'required' => true,

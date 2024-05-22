@@ -27,7 +27,7 @@ $stm = $SERVICES['pdo']->prepare(
         `foodrestrict`,
         `appfood`
     FROM
-        `sam_prihlasky_2`
+        `sam_prihlasky_3`
     WHERE
         `year`=? AND id=?'
 );

@@ -10,6 +10,6 @@ SELECT
     SUM(IF(LOCATE('3.0', sp.appfood) > 0, 1, 0)) AS `NS`,
     SUM(IF(LOCATE('3.1', sp.appfood) > 0, 1, 0)) AS `NO`
 FROM
-	sam_prihlasky_2 sp
+	sam_prihlasky_3 sp
 WHERE
 	year = 2021

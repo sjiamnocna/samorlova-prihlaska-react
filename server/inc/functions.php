@@ -113,7 +113,7 @@ function dbInsert(array $data, bool $debug = false): array
 
     $cols = '`' . implode('`,`', array_keys($data)) . '`';
     $placeholders = str_repeat('?,', count($data) - 1) . '?';
-    $targetTable = $debug ? 'test_sam_prihlasky_2' : 'sam_prihlasky_2';
+    $targetTable = $debug ? 'test_sam_prihlasky_3' : 'sam_prihlasky_3';
     
     $stmt = $SERVICES['pdo']->prepare(
         "INSERT INTO
