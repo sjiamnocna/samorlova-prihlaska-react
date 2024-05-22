@@ -17,10 +17,15 @@ $personalData = process_personal_data($postData['user-data'], $fields);
  */
 $sum = calculate_prices();
 
+$bd = (new DateTime($personalData['bdate']))->modify('+18 years');
+$fd = (new DateTime(START_DATE))->modify('+4 days');
+if ($bd < $fd) $under18 = "true";
+else $under18 = "";
+
 $templateVars = [
     'name' => $personalData['name'],
     'sname' => $personalData['sname'],
-    'bdate_test' => $personalData['bdate']->modify('+18 year'),
+    'under18' => $under18,
     'address' => implode(',', [$personalData['street'], $personalData['streetNo'], $personalData['town'], $personalData['postcode']]),
     'vs' => $personalData['name'],
     'name' => $personalData['name'],
@@ -30,8 +35,9 @@ $templateVars = [
     'strava' => number_format($sum[1], 2),
     'donation' => number_format($sum[2], 2),
     'total' => number_format($sum[3], 2, '.', ''),
+    'appprogram_text' => $sum[6],
+    'appfood_text' => $sum[7],
     'splatnost' => (new DateTime(SPLATNOST))->format('j. n. Y'),
-    'finish_date' => (new DateTime(START_DATE))->format('j. n. Y')->modify('+4 day'),
     'msg' => "SAM {$personalData['name']} {$personalData['sname']}",
     'respondMail' => 'sam@samorlova.cz',
     'year' => date("Y"),
@@ -95,7 +101,6 @@ $QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRfilename);
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
-->addBcc('Kuchař <damilda@seznam.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
 ->setHtmlBody(
     $SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),

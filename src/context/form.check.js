@@ -15,7 +15,7 @@ const checkDetails = {
         minimalLength: 5
     },
     bdate:{
-        errorMessage: "Datum narození ve formátu X.Y.ZZZZ",
+        errorMessage: "Datum narození ve formátu DD.MM.RRRR",
         minimalLength: 8
     },
     street: {
@@ -42,6 +42,11 @@ const checkDetails = {
         optional: 1
     },
     foodrestrict: {
+        optional: 1
+    }
+    donation: {
+        regex: /^[0-9]\d*$/,
+        errorMessage: "Pouze kladná čísla",
         optional: 1
     }
 };

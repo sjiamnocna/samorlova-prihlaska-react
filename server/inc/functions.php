@@ -23,9 +23,13 @@ function calculate_prices(): array
     $sum = [0, 0, 0];
     $orders_program = [];
     $orders_food = [];
+    $orders_program_text = "";
+    $orders_food_text = "";
 
     for($day = 0, $c = count($dataPrices); $day < $c; $day++){
         $dayData = $dataPrices[$day];
+        $day_text = $dayData['title'];
+        $tmp = [];
         for($program = 0, $pc = count($dayData['program']); $program < $pc; $program++){
             $programData = $dayData['program'][$program];
             $key = $day . '.' . $program;
@@ -33,8 +37,14 @@ function calculate_prices(): array
             if ($programChecked){
                 $orders_program[] = $key;
                 $sum[0] += intval($programData['price']);
+                $tmp[] = $programData['title'];
             }
         }
+        if (sizeof($tmp) > 0){
+            $tmp = implode(', ', $tmp);
+            $orders_program_text = $orders_program_text . implode(': ', [$day_text, $tmp]) . ";  ";
+        }
+        $tmp = [];
         for($meal = 0, $mc = count($dayData['food']); $meal < $mc; $meal++){
             $mealData = $dayData['food'][$meal];
             $key = $day . '.' . $meal;
@@ -42,7 +52,12 @@ function calculate_prices(): array
             if ($mealChecked){
                 $orders_food[] = $key;
                 $sum[1] += intval($mealData['price']);
+                $tmp[] = $mealData['title'];
             }
+        }
+        if (sizeof($tmp) > 0){
+            $tmp = implode(', ', $tmp);
+            $orders_food_text = $orders_food_text . implode(': ', [$day_text, $tmp]) . ";  ";
         }
     }
 
@@ -51,6 +66,12 @@ function calculate_prices(): array
     $sum[] = array_sum($sum);
     $sum[] = implode(';', $orders_program);
     $sum[] = implode(';', $orders_food);
+    if (sizeof($orders_program_text) > 0){
+        $sum[] = "(" . rtrim($orders_program_text, ";  ") . ")";
+    }else $sum[] = "";
+    if (sizeof($orders_food_text) > 0){
+        $sum[] = "(" . rtrim($orders_food_text, ";  ") . ")";
+    }else $sum[] = "";
 
     // return sums for program/price/total and orders string for DB
     return $sum;
