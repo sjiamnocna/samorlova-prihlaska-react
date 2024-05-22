@@ -41,6 +41,9 @@
 </head>
 <body>
     <p>Přihláška byla úspěšně odeslána</p>
+    {if $bdate_test < finish_date}
+    <p>Upozorňujeme, že nezletilý účastník může být účasten SAMu pouze v doprovodu zodpovědné osoby starší 18 let. V tomto případě je nutné vyplnit a odevzdat při registraci na místě dokument „Zodpovědnost za nezletilého“, který je ke stažení na <a href="http://samorlova.cz">webu SAMu</a>. Pokud spolu s nezletilým jsou účastni festivalu i jeho zákonní zástupci, není nutné tento dokument vyplnit.</p>
+    {/if}
     <p>Berte prosím v&nbsp;potaz, že přihláška nabývá platnosti až po&nbsp;připsání částky {$total} na&nbsp;účet organizátora, a&nbsp;to <b>nejpozději do&nbsp;{$splatnost}</b></p>
     <p>Podrobné údaje o&nbsp;platbě můžete nalézt níže;</p>
     <div class="details">
