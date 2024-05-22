@@ -40,7 +40,7 @@ function calculate_prices(): array
                 $tmp[] = $programData['title'];
             }
         }
-        if (sizeof($tmp) > 0){
+        if (count($tmp) > 0){
             $tmp = implode(', ', $tmp);
             $orders_program_text = $orders_program_text . implode(': ', [$day_text, $tmp]) . ";  ";
         }
@@ -55,7 +55,7 @@ function calculate_prices(): array
                 $tmp[] = $mealData['title'];
             }
         }
-        if (sizeof($tmp) > 0){
+        if (count($tmp) > 0){
             $tmp = implode(', ', $tmp);
             $orders_food_text = $orders_food_text . implode(': ', [$day_text, $tmp]) . ";  ";
         }
@@ -66,10 +66,10 @@ function calculate_prices(): array
     $sum[] = array_sum($sum);
     $sum[] = implode(';', $orders_program);
     $sum[] = implode(';', $orders_food);
-    if (sizeof($orders_program_text) > 0){
+    if (strlen($orders_program_text) > 0){
         $sum[] = "(" . rtrim($orders_program_text, ";  ") . ")";
     }else $sum[] = "";
-    if (sizeof($orders_food_text) > 0){
+    if (strlen($orders_food_text) > 0){
         $sum[] = "(" . rtrim($orders_food_text, ";  ") . ")";
     }else $sum[] = "";
 

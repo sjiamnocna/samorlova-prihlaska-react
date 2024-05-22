@@ -18,8 +18,8 @@ $personalData = process_personal_data($postData['user-data'], $fields);
 $sum = calculate_prices();
 
 $bd = (new DateTime($personalData['bdate']))->modify('+18 years');
-$fd = (new DateTime(START_DATE))->modify('+4 days');
-if ($bd < $fd) $under18 = "true";
+$fd = (new DateTime(START_DATE))->modify('+3 days');
+if ($bd > $fd) $under18 = "true";
 else $under18 = "";
 
 $templateVars = [
@@ -101,6 +101,7 @@ $QRresult = $QRWriter->write($QRCode)->saveToFile(QRCACHE_PATH . $QRfilename);
 $mail = new Nette\Mail\Message;
 $mail->setFrom('Přihlášky SAM <prihlasky@samorlova.cz>')
 ->addReplyTo('SAM Orlova <sam@samorlova.cz>')
+->addBcc('Kuchař <damilda@seznam.cz>')
 ->addTo("{$templateVars['name']} {$templateVars['sname']} <{$personalData['mail']}>")
 ->setHtmlBody(
     $SERVICES['latte']->renderToString(ROOT_PATH . 'inc/src/templattes/successMail.latte', $templateVars),
