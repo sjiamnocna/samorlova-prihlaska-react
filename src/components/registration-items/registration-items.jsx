@@ -12,8 +12,10 @@ const RegistrationItems = () => {
 
   const pricesList = [];
 
-  for (index in formPrices) {
+  // each index represents the data of the day
+  for (const index in formPrices) {
     const item = formPrices[index];
+    
     pricesList.push(
       <DayOptions key={index} i={index} item={item} />
     );
