@@ -38,6 +38,15 @@
             }
         }
         
+        table.resume {
+            border-collapse: collapse;
+            text-align: center;
+        }
+
+        table.resume td, table.resume th {
+            padding: 3px 12px 0;
+        }
+
     </style>
 </head>
 <body>
@@ -54,7 +63,7 @@
             <p>Berte prosím v&nbsp;potaz, že přihláška nabývá platnosti až po&nbsp;připsání částky {$total} Kč na&nbsp;účet organizátora, a&nbsp;to <b>nejpozději do&nbsp;{$splatnost}</b>.</p>
         </li>
     </ul>
-    <div class="details" id="wrapper">
+    <div class="details">
         <div class="QRCode">
             <img src="{$QRCode}"/>
         </div>
@@ -81,12 +90,13 @@
                         <td>{$total},-</td>
                     </tr>
                 </table>
-                <p>Objednaný program:</p>
-                <p>{$appprogram_text}</p>
-                <p>Objednaná strava:</p>
-                <p>{$appfood_text}</p>
             </div>
         </div>
+    </div>
+
+    <div>
+        {$appprogram_text|noescape}
+        {$appfood_text|noescape}
     </div>
 
     <div class="footer">

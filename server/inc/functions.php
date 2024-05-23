@@ -29,7 +29,9 @@ function calculate_prices(): array
     for($day = 0, $c = count($dataPrices); $day < $c; $day++){
         $dayData = $dataPrices[$day];
         $day_text = $dayData['title'];
-        $tmp = [];
+        $tmp = "";
+        $counter = 0;
+
         for($program = 0, $pc = count($dayData['program']); $program < $pc; $program++){
             $programData = $dayData['program'][$program];
             $key = $day . '.' . $program;
@@ -37,14 +39,24 @@ function calculate_prices(): array
             if ($programChecked){
                 $orders_program[] = $key;
                 $sum[0] += intval($programData['price']);
-                $tmp[] = $programData['title'];
+                $tmp = $tmp . "<td>✅</td>";
+                $counter++;
+            }else{
+                $tmp = $tmp . "<td></td>";
             }
         }
-        if (count($tmp) > 0){
-            $tmp = implode(', ', $tmp);
-            $orders_program_text = $orders_program_text . implode(': ', [$day_text, $tmp]) . ";  ";
+        if ($counter > 0){
+            if ($day === 0){
+                $tmp = "<td></td><td></td>" . $tmp;
+            }
+            if ($day === 3){
+                $tmp = $tmp . "<td></td><td></td>";
+            }
+            $orders_program_text = $orders_program_text . "<tr><td>" . $day_text . "</td>" . $tmp . "</tr>";
         }
-        $tmp = [];
+        $tmp = "";
+        $counter = 0;
+
         for($meal = 0, $mc = count($dayData['food']); $meal < $mc; $meal++){
             $mealData = $dayData['food'][$meal];
             $key = $day . '.' . $meal;
@@ -52,12 +64,20 @@ function calculate_prices(): array
             if ($mealChecked){
                 $orders_food[] = $key;
                 $sum[1] += intval($mealData['price']);
-                $tmp[] = $mealData['title'];
+                $tmp = $tmp . "<td>✅</td>";
+                $counter++;
+            }else{
+                $tmp = $tmp . "<td></td>";
             }
         }
-        if (count($tmp) > 0){
-            $tmp = implode(', ', $tmp);
-            $orders_food_text = $orders_food_text . implode(': ', [$day_text, $tmp]) . ";  ";
+        if ($counter > 0){
+            if ($day === 0){
+                $tmp = "<td></td><td></td>" . $tmp;
+            }
+            if ($day === 3){
+                $tmp = $tmp . "<td></td>";
+            }
+            $orders_food_text = $orders_food_text . "<tr><td>" . $day_text . "</td>" . $tmp . "</tr>";
         }
     }
 
@@ -67,10 +87,10 @@ function calculate_prices(): array
     $sum[] = implode(';', $orders_program);
     $sum[] = implode(';', $orders_food);
     if (strlen($orders_program_text) > 0){
-        $sum[] = rtrim($orders_program_text, ";  ");
+        $sum[] = '<p>Objednaný program:</p> <table class="resume" border="2" cellpadding="3"> <tr> <th>Den</th><th>Dopolední</th><th>Odpolední</th><th>Večerní</th></tr>' . $orders_program_text . "</table>";
     }else $sum[] = "";
     if (strlen($orders_food_text) > 0){
-        $sum[] = rtrim($orders_food_text, ";  ");
+        $sum[] = '<p>Objednané jídlo:</p> <table class="resume" border="2" cellpadding="3"> <tr> <th>Den</th><th>Snídaně</th><th>Oběd</th><th>Věčeře</th></tr>' . $orders_food_text . "</table>";
     }else $sum[] = "";
 
     // return sums for program/price/total and orders string for DB
