@@ -67,10 +67,10 @@ function calculate_prices(): array
     $sum[] = implode(';', $orders_program);
     $sum[] = implode(';', $orders_food);
     if (strlen($orders_program_text) > 0){
-        $sum[] = "(" . rtrim($orders_program_text, ";  ") . ")";
+        $sum[] = rtrim($orders_program_text, ";  ");
     }else $sum[] = "";
     if (strlen($orders_food_text) > 0){
-        $sum[] = "(" . rtrim($orders_food_text, ";  ") . ")";
+        $sum[] = rtrim($orders_food_text, ";  ");
     }else $sum[] = "";
 
     // return sums for program/price/total and orders string for DB

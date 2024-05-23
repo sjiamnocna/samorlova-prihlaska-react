@@ -1,11 +1,11 @@
 const checkDetails = {
     name: {
-        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ][a-záéíóúýčďěňřšťžů-]+ ?)+$/,
+        regex: /^([A-Ž][a-ž-]+ ?)+$/,
         errorMessage: "Používejte české znaky, první písmeno jména by mělo být velké. Více jmen oddělte mezerou",
         minimalLength: 2
     },
     sname: {
-        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ][a-záéíóúýčďěňřšťžů-]+ ?)+$/,
+        regex: /^([A-Ž][a-ž-]+ ?)+$/,
         errorMessage: "Používejte české znaky, první písmeno jména by mělo být velké. Více jmen oddělte mezerou",
         minimalLength: 2
     },
@@ -19,7 +19,7 @@ const checkDetails = {
         minimalLength: 8
     },
     street: {
-        regex: /^([A-ZÁČĎŇŘŠŤÚÝŽ\d][a-záéíóúýčďěňřšťžů \d.-]{1,})+$/,
+        regex: /^([A-Ž\d][a-ž \d.-]{1,})+$/,
         errorMessage: "Používejte české znaky, první písmeno by mělo být velké.",
         minimalLength: 2
     },

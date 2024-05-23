@@ -20,8 +20,8 @@ $appClose_php = $appClose_php->modify('+1 day');
 if(!($_SESSION['external_allow_register'] ?? false && $_SESSION['external_allow_register'] === PRIVATE_TOKEN) && ($now <= $appOpen || $now > $appClose_php)){
     json_response([
         'html' => $SERVICES['latte']->renderToString(TEMPLATE_DIR . 'app_closed.latte', [
-            'appOpen' => $appOpen->format('j. n. Y'),
-            'appClose' => $appClose->format('j. n. Y'),
+            'appOpen' => $appOpen->format('j.n.Y H:i'),
+            'appClose' => $appClose->format('j.n.Y H:i'),
         ]),
         'controls' => 'none'
     ], 1);

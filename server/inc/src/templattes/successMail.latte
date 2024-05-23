@@ -5,7 +5,6 @@
             margin: .5em;
         }
         .details{
-            display: flex;
             overflow: hidden;
             border: 2px solid black;
             padding: .5em;
@@ -13,19 +12,13 @@
         }
         .details .QRCode{
             padding: 0;
+            float: left;
         }
         .details .QRCode img{
-            float:right;
             margin:.5em;
         }
         .details .prices, .details .payment{
             padding: .5em 1em;
-        }
-        .details .prices{
-            flex: 1;
-        }
-        .details .payment{
-            flex: 2;
         }
         table tr.last-row{
             font-weight: bold;
@@ -37,32 +30,47 @@
             font-style: italic;
             clear: both;
         }
+        
+        @media screen and (max-width: 950px) {   /* ******** ADDED ******** */
+            .details .QRCode{
+                min-width: 100%;
+                text-align: center;
+            }
+        }
+        
     </style>
 </head>
 <body>
-    <p>Přihláška byla úspěšně odeslána</p>
-    {if $under18 === "true"}
-    <p>Upozorňujeme, že nezletilý účastník může být účasten SAMu pouze v doprovodu zodpovědné osoby starší 18 let. V tomto případě je nutné vyplnit a odevzdat při registraci na místě dokument „Zodpovědnost za nezletilého“, který je ke stažení na <a href="http://samorlova.cz">webu SAMu</a>. Pokud spolu s nezletilým jsou účastni festivalu i jeho zákonní zástupci, není nutné tento dokument vyplnit.</p>
-    {/if}
-    <p>Berte prosím v&nbsp;potaz, že přihláška nabývá platnosti až po&nbsp;připsání částky {$total} na&nbsp;účet organizátora, a&nbsp;to <b>nejpozději do&nbsp;{$splatnost}</b></p>
-    <p>Podrobné údaje o&nbsp;platbě můžete nalézt níže;</p>
-    <div class="details">
+    <ul>
+        <li style="list-style-type: '✅'">
+            <p>Přihláška byla úspěšně odeslána. Podrobné údaje o&nbsp;platbě můžete nalézt níže.</p>
+        </li>
+        <li style="list-style-type: '❗'">
+        {if $under18 === "true"}
+            <p><b>Upozorňujeme, že nezletilý účastník může být účasten SAMu pouze v doprovodu zodpovědné osoby starší 18 let.</b> V tomto případě je nutné vyplnit a odevzdat při registraci na místě dokument „Zodpovědnost za nezletilého“, který je ke stažení na <a href="http://samorlova.cz">webu SAMu</a>. Pokud spolu s nezletilým jsou účastni festivalu i jeho zákonní zástupci, není nutné tento dokument vyplnit.</p>
+        {/if}
+        </li>
+        <li style="list-style-type: '❗';">
+            <p>Berte prosím v&nbsp;potaz, že přihláška nabývá platnosti až po&nbsp;připsání částky {$total} Kč na&nbsp;účet organizátora, a&nbsp;to <b>nejpozději do&nbsp;{$splatnost}</b>.</p>
+        </li>
+    </ul>
+    <div class="details" id="wrapper">
         <div class="QRCode">
             <img src="{$QRCode}"/>
         </div>
         <div class="payment">
             <p>Částku <b>{$total}&nbsp;Kč</b> uhraďte prosím na&nbsp;účet organizátora <b>{$acc}</b> s&nbsp;variabilním symbolem <b>{$vs}</b> nejpozději do <b>{$splatnost}</b>.</p>
             <p>V případě nezaplacení účastnického poplatku Vaše přihláška zaniká a zaplatíte poplatek na místě u&nbsp;registračního stánku (cena může být vyšší)</p>
-            <p class="QRCode">Pokud to vaše bankovní aplikace umožňuje, můžete zaplatit také pomocí tohoto QR kódu.</p>
+            <p>Pokud to vaše bankovní aplikace umožňuje, můžete zaplatit také pomocí tohoto QR kódu.</p>
             <div class="prices">
                 <table>
                     <tr>
                         <td>Účastnický poplatek</td>
-                        <td>{$program},- {$appprogram_text}</td>
+                        <td>{$program},-</td>
                     </tr>
                     <tr>
                         <td>Cena za jídlo</td>
-                        <td>{$strava},- {$appfood_text}</td>
+                        <td>{$strava},-</td>
                     </tr>
                     <tr n:if="$donation > 0">
                         <td>Příspěvek na organizaci akce</td>
@@ -73,6 +81,10 @@
                         <td>{$total},-</td>
                     </tr>
                 </table>
+                <p>Objednaný program:</p>
+                <p>{$appprogram_text}</p>
+                <p>Objednaná strava:</p>
+                <p>{$appfood_text}</p>
             </div>
         </div>
     </div>
